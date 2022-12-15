@@ -226,17 +226,6 @@ Future showNewOrdersDialog(
                               NewOrdersBloc.get(context)
                                   .deleteNewOrder(orderId: order.orderId!);
                             }),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width /
-                                  AppSize.s100,
-                            ),
-                            button(
-                              context,
-                              AppStrings.cancel.tr(),
-                              () {
-                                Navigator.pop(context);
-                              },
-                            ),
                           ],
                         );
                       },

@@ -67,6 +67,7 @@ Widget itemBuilder(List<ResturantModel> list) => ListView.builder(
         child: Padding(
           padding: EdgeInsets.symmetric(
             vertical: MediaQuery.of(context).size.height / AppSize.s50,
+            horizontal: MediaQuery.of(context).size.height / AppSize.s50,
           ),
           child: Row(
             children: [
@@ -114,7 +115,7 @@ Widget itemBuilder(List<ResturantModel> list) => ListView.builder(
               Expanded(
                 flex: 1,
                 child: Text(
-                  list[index].approveName??"",
+                  list[index].approveName ?? "",
                   style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         fontSize: FontSizeManager.s14.sp,
                         color: ColorManager.grey,

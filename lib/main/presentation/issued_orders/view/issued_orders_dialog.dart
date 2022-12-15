@@ -167,7 +167,7 @@ Future showIssuedOrdersDialog(BuildContext context, IssuedModel order) =>
                 bodyText(
                   context,
                   AppStrings.issueDate.tr(),
-                  order.issueDate!,
+                  order.issueDate??"",
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -186,7 +186,7 @@ Future showIssuedOrdersDialog(BuildContext context, IssuedModel order) =>
                 bodyText(
                   context,
                   AppStrings.name.tr(),
-                  order.custName!,
+                  order.custName??"",
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -209,7 +209,7 @@ Future showIssuedOrdersDialog(BuildContext context, IssuedModel order) =>
                 bodyText(
                   context,
                   AppStrings.name.tr(),
-                  order.memberName!,
+                  order.memberName??"",
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -217,7 +217,7 @@ Future showIssuedOrdersDialog(BuildContext context, IssuedModel order) =>
                 bodyText(
                   context,
                   AppStrings.phone.tr(),
-                  order.memberPhone!,
+                  order.memberPhone??"",
                 ),
               ],
             ),

@@ -49,7 +49,7 @@
       "verifiedOutlet": "Verified Outlet",
       "restaurant": "Restaurant",
       "estQt": "Est.QT : ",
-      "surveyerName": "Surveyer Name : ",
+      "surveyerName": "Surveyed by : ",
       "outletNameEn": "Outlet Name En : ",
       "outletNameAr": "Outlet Name Ar : ",
       "city": "City : ",
@@ -71,10 +71,10 @@
       "outletSpace": "Outlet Space",
       "submit": "Submit",
       "cancel": "Cancel",
-      "verifierName": "Verifier Name",
+      "verifierName": "Verified by",
       "assign": "Assign",
       "purchasingTeam": "Purchasing Team",
-      "purchaserName": "Purchaser Name",
+      "purchaserName": "Assigned By:",
       "purchaserphone": "Purchasing Phone",
       "purchasing": "Purchasing",
       "reAssign": "Re-Assign",
@@ -171,5 +171,6 @@
       "issueType": "Issue Type : ",
       "issueDate": "Issue Date : ",
       "issueComment": "Issue Comment : ",
-      "delete": "Delete"
+      "delete": "Delete",
+      "messageError": "The email or password is incorrect"
 }

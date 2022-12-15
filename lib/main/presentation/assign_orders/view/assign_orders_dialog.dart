@@ -241,17 +241,6 @@ Future showAssignOrdersDialog(
                                     builder: (context) =>
                                         EditAssignedOrderScreen(order: order)));
                           }),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width /
-                                AppSize.s100,
-                          ),
-                          button(
-                            context,
-                            AppStrings.cancel.tr(),
-                            () {
-                              Navigator.pop(context);
-                            },
-                          ),
                         ],
                       );
                     },

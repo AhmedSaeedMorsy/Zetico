@@ -9,6 +9,7 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 
 class HomeDriverScreen extends StatelessWidget {
   const HomeDriverScreen({super.key});
@@ -96,32 +97,45 @@ class HomeDriverScreen extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.topRight,
-                child: Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    Image(
-                      width: AppSize.s20.w,
-                      image: const AssetImage(
-                        AssetsManager.notification,
+                child: InkWell(onTap: (){
+                   CacheHelper.removeData(
+                  key: SharedKey.role,
+                );
+                CacheHelper.removeData(
+                  key: SharedKey.token,
+                );
+                Navigator.pushReplacementNamed(
+                  context,
+                  Routes.loginRoute,
+                );
+                },
+                  child: Stack(
+                    alignment: Alignment.topRight,
+                    children: [
+                      Image(
+                        width: AppSize.s20.w,
+                        image: const AssetImage(
+                          AssetsManager.notification,
+                        ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.width / AppSize.s100,
+                      Container(
+                        padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.width / AppSize.s100,
+                        ),
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        decoration: BoxDecoration(
+                          color: ColorManager.error,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          AppStrings.three,
+                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: FontSizeManager.s14.sp,
+                              ),
+                        ),
                       ),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      decoration: BoxDecoration(
-                        color: ColorManager.error,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text(
-                        AppStrings.three,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: FontSizeManager.s14.sp,
-                            ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -159,7 +173,7 @@ class HomeDriverScreen extends StatelessWidget {
                               alignment: Alignment.bottomRight,
                               children: [
                                 Image(
-                                  width: AppSize.s100.w,
+                                  width: AppSize.s90.w,
                                   image: const AssetImage(
                                     AssetsManager.orders,
                                   ),

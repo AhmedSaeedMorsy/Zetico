@@ -56,14 +56,12 @@ class CollectedOrdersView extends StatelessWidget {
         itemCount: order.length,
         itemBuilder: (context, index) => InkWell(
           onTap: () {
-            showCollectedOrdersDialog(
-              context,
-              order[index]
-            );
+            showCollectedOrdersDialog(context, order[index]);
           },
           child: Padding(
             padding: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height / AppSize.s50,
+              horizontal: MediaQuery.of(context).size.height / AppSize.s50,
             ),
             child: Row(
               children: [
@@ -114,7 +112,7 @@ class CollectedOrdersView extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    "${AppStrings.date.tr()} ${ order[index].collectedDate}",
+                    "${AppStrings.date.tr()} ${order[index].collectedDate}",
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
                           fontSize: FontSizeManager.s14.sp,
                           color: ColorManager.grey,

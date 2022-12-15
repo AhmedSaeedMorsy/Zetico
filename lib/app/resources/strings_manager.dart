@@ -169,4 +169,7 @@ class AppStrings {
   static String issueComment = "issueComment";
   static String delete = "delete";
   static String issuedString = "I can't collect Order";
+  static String emailValidation = "emailValidation";
+  static String passwordValidation = "passwordValidation";
+  static String messageError = "messageError";
 }

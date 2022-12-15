@@ -30,10 +30,9 @@ class PurchasingHomeScreen extends StatelessWidget {
           centerTitle: true,
           title: Text(
             AppStrings.purchasingOutlet.tr(),
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(fontSize: FontSizeManager.s16.sp),
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: FontSizeManager.s16.sp,
+                ),
           ),
         ),
         body: Column(

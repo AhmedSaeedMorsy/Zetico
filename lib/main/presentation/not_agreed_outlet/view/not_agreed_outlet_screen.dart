@@ -66,6 +66,7 @@ class NotAgreedOutletScreen extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height / AppSize.s50,
+              horizontal: MediaQuery.of(context).size.height / AppSize.s50,
             ),
             child: Row(
               children: [
@@ -116,7 +117,7 @@ class NotAgreedOutletScreen extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    list[index].approveName??"",
+                    list[index].approveName ?? "",
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
                           fontSize: FontSizeManager.s14.sp,
                           color: ColorManager.grey,

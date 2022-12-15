@@ -253,7 +253,7 @@ class EditNewOrderScreen extends StatelessWidget {
         child: Text(
           text,
           style: Theme.of(context).textTheme.displaySmall!.copyWith(
-              fontSize: FontSizeManager.s18.sp, color: ColorManager.black),
+              fontSize: FontSizeManager.s16.sp, color: ColorManager.black),
           textAlign: TextAlign.center,
         ),
       ),

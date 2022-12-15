@@ -37,4 +37,6 @@ class CacheHelper {
 
 enum SharedKey {
   Language,
+  token,
+  role,
 }

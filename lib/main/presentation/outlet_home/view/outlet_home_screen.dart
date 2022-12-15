@@ -19,7 +19,8 @@ class OutletHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 5,
-      child: BlocProvider(create: (context)=>ViewOutletBloc()..getViewOutlet(),
+      child: BlocProvider(
+        create: (context) => ViewOutletBloc()..getViewOutlet(),
         child: Scaffold(
           appBar: AppBar(
             actions: [
@@ -75,33 +76,18 @@ class OutletHomeScreen extends StatelessWidget {
                   tabs: [
                     Text(
                       AppStrings.viewOutlet.tr(),
-                      style: TextStyle(
-                        fontSize: FontSizeManager.s16.sp,
-                      ),
                     ),
                     Text(
                       AppStrings.agreed.tr(),
-                      style: TextStyle(
-                        fontSize: FontSizeManager.s16.sp,
-                      ),
                     ),
                     Text(
                       AppStrings.active.tr(),
-                      style: TextStyle(
-                        fontSize: FontSizeManager.s16.sp,
-                      ),
                     ),
                     Text(
                       AppStrings.inActive.tr(),
-                      style: TextStyle(
-                        fontSize: FontSizeManager.s16.sp,
-                      ),
                     ),
                     Text(
                       AppStrings.notAgreed.tr(),
-                      style: TextStyle(
-                        fontSize: FontSizeManager.s16.sp,
-                      ),
                     ),
                   ],
                 ),
@@ -109,13 +95,13 @@ class OutletHomeScreen extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height / AppSize.s30,
               ),
-             const Expanded(
+              const Expanded(
                 child: TabBarView(
                   children: [
                     OutletScreen(),
                     AgreedOutletScreen(),
                     ActiveOutletScreen(),
-                   InActiveOutletScreen(),
+                    InActiveOutletScreen(),
                     NotAgreedOutletScreen(),
                   ],
                 ),

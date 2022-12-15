@@ -397,8 +397,11 @@ class CollectionView extends StatelessWidget {
             result = await showDialogCollection(context);
             problemController.text = result!.issuedName!;
           },
-          suffixIcon: const Icon(
-            Icons.arrow_drop_down,
+          suffixIcon: IconButton(
+            icon: const Icon(
+              Icons.arrow_drop_down,
+            ),
+            onPressed: () {},
           ),
         ),
         SizedBox(

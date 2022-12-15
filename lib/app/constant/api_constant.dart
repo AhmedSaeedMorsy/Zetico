@@ -113,4 +113,6 @@ class ApiConstant {
       "https://zeitco.linemedia.live/api/orders.php/issue";
   static String issuesOrderPath =
       "https://zeitco.linemedia.live/api/driverApp.php/IssueOrder";
+  static String loginUserPath =
+      "https://zeitco.linemedia.live/api/driverApp.php/login";
 }

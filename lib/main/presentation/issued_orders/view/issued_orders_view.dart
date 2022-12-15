@@ -60,6 +60,7 @@ class IssuedOrdersView extends StatelessWidget {
           },
           child: Padding(
             padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.height / AppSize.s50,
               vertical: MediaQuery.of(context).size.height / AppSize.s50,
             ),
             child: Row(

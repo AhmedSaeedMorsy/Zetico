@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:zetico/app/resources/font_manager.dart';
 import 'package:zetico/main/main_controller/main_bloc.dart';
 import 'package:zetico/main/main_controller/main_states.dart';
@@ -24,7 +25,7 @@ class SharedWidget {
     String? hint,
     bool? enabled,
     String? Function(String?)? validator,
-    Icon? suffixIcon,
+    IconButton? suffixIcon,
     void Function(String)? onFieldSubmitted,
     int maxLines = 1,
     double paddding = AppSize.s10,
@@ -86,17 +87,16 @@ class SharedWidget {
   //   );
   // }
 
-  // static toast({required String message}) {
-  //   return Fluttertoast.showToast(
-  //     msg: message,
-  //     toastLength: Toast.LENGTH_SHORT,
-  //     gravity: ToastGravity.BOTTOM,
-  //     timeInSecForIosWeb: ConstantManager.timeInSecForIosWeb,
-  //     backgroundColor: ColorManager.error,
-  //     textColor: ColorManager.primary,
-  //     fontSize: FontSizeManager.s16,
-  //   );
-  // }
+  static toast({required String message}) {
+    return Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: ColorManager.error,
+      textColor: ColorManager.white,
+      fontSize: FontSizeManager.s16.sp,
+    );
+  }
 
   static Widget defaultButton(
       BuildContext context, Function() function, String text) {
@@ -212,8 +212,8 @@ class SharedWidget {
       );
 
   static circleContainer() => Container(
-        width: AppSize.s80.w,
-        height: AppSize.s80.h,
+        width: AppSize.s60.w,
+        height: AppSize.s60.h,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(

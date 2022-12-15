@@ -214,7 +214,7 @@ Future showPurchasedDialog(
                 bodyText(
                   context,
                   AppStrings.purchasedBy.tr(),
-                  outlet.approveName!,
+                  outlet.approveName??"",
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,

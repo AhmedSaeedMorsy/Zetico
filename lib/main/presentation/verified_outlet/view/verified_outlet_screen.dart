@@ -14,7 +14,7 @@ import '../../../../app/resources/values_manager.dart';
 import '../../../models/verfied_model.dart';
 
 class VerifiedOutlet extends StatelessWidget {
- const VerifiedOutlet({super.key});
+  const VerifiedOutlet({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -66,6 +66,7 @@ class VerifiedOutlet extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(
               vertical: MediaQuery.of(context).size.height / AppSize.s50,
+              horizontal: MediaQuery.of(context).size.height / AppSize.s50,
             ),
             child: Row(
               children: [

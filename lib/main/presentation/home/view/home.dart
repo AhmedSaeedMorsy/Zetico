@@ -1,13 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zetico/app/resources/assets_manager.dart';
 import 'package:zetico/app/resources/color_manager.dart';
 import 'package:zetico/app/resources/font_manager.dart';
 import 'package:zetico/app/resources/strings_manager.dart';
+import 'package:zetico/app/services/shared_prefrences/cache_helper.dart';
 import 'package:zetico/main/main_controller/main_bloc.dart';
 import 'package:zetico/main/main_controller/main_states.dart';
+import '../../../../app/resources/language_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/values_manager.dart';
 
@@ -281,7 +284,7 @@ class HomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               onTap: () {
-                // Navigator.pushNamed(context, Routes.changeLang);
+                changeLanguage(context);
               },
             ),
             SizedBox(
@@ -295,9 +298,7 @@ class HomeScreen extends StatelessWidget {
                 AppStrings.editProfile.tr(),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
-              onTap: () {
-                // Navigator.pushNamed(context, Routes.changeLang);
-              },
+              onTap: () {},
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height / AppSize.s22,
@@ -311,10 +312,23 @@ class HomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               onTap: () {
-                // Navigator.pushNamed(context, Routes.changeLang);
+                CacheHelper.removeData(
+                  key: SharedKey.role,
+                );
+                CacheHelper.removeData(
+                  key: SharedKey.token,
+                );
+                Navigator.pushReplacementNamed(
+                  context,
+                  Routes.loginRoute,
+                );
               },
             ),
           ],
         ),
       );
+  void changeLanguage(context) {
+    changeAppLanguage();
+    Phoenix.rebirth(context);
+  }
 }
