@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zetico/main/presentation/purchased_outlet/controller/purchsed_bloc.dart';
+import '../../../../app/common/widget.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/purchsed_model.dart';
 import '../../aprove_purchased/view/approve_purchased_screen.dart';
 import '../controller/purchsed_states.dart';
@@ -214,7 +216,7 @@ Future showPurchasedDialog(
                 bodyText(
                   context,
                   AppStrings.purchasedBy.tr(),
-                  outlet.approveName??"",
+                  outlet.approveName ?? "",
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -301,12 +303,24 @@ Future showPurchasedDialog(
                             context,
                             AppStrings.approve.tr(),
                             () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ApprovePurchasrdScreen(outlet: outlet,)),
-                              );
+                              if (CacheHelper.getData(
+                                key: SharedKey.roleCreate,
+                              ).toString().contains("purchased")) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ApprovePurchasrdScreen(
+                                            outlet: outlet,
+                                          )),
+                                );
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
                             },
                           ),
                           SizedBox(
@@ -317,9 +331,19 @@ Future showPurchasedDialog(
                             context,
                             AppStrings.notAgreed.tr(),
                             () {
-                              PurchsedBloc.get(context).notAgreedPurchased(
-                                outletId: outlet.outletId,
-                              );
+                              if (CacheHelper.getData(
+                                key: SharedKey.roleSpecial,
+                              ).toString().contains("notAgreedpurchased")) {
+                                PurchsedBloc.get(context).notAgreedPurchased(
+                                  outletId: outlet.outletId,
+                                );
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
                             },
                           ),
                           SizedBox(
@@ -330,9 +354,19 @@ Future showPurchasedDialog(
                             context,
                             AppStrings.declined.tr(),
                             () {
-                              PurchsedBloc.get(context).declinedPurchased(
-                                outletId: outlet.outletId,
-                              );
+                              if (CacheHelper.getData(
+                                key: SharedKey.roleDelete,
+                              ).toString().contains("purchased")) {
+                                PurchsedBloc.get(context).declinedPurchased(
+                                  outletId: outlet.outletId,
+                                );
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
                             },
                           ),
                         ],

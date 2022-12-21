@@ -50,7 +50,7 @@ class EditSurveyedView extends StatelessWidget {
         controllerArabicName.text = outlet.outletNameAr!;
         controllerPhone.text = outlet.phone!;
         controllerCustomerName.text = outlet.custName!;
-        controllerNote.text = outlet.notes!;
+        controllerNote.text = outlet.notes??"";
         controllerAddress.text = outlet.addressDetail!;
         controllerLocation.text = outlet.location!;
         area = outlet.areaEn!;
@@ -193,7 +193,7 @@ class EditSurveyedView extends StatelessWidget {
                               child: MaterialButton(
                                 onPressed: () {
                                   controllerLocation.text =
-                                      "${MainBloc.get(context).longitude} , ${MainBloc.get(context).latitude}";
+                                      "${MainBloc.get(context).latitude} , ${MainBloc.get(context).longitude}";
                                 },
                                 child: Text(
                                   AppStrings.getLocation.tr(),

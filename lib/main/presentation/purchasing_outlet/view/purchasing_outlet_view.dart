@@ -9,6 +9,7 @@ import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/verfied_model.dart';
 import '../controller/purchasing_states.dart';
 import '../controller/purchsing_bloc.dart';
@@ -20,34 +21,60 @@ class PurchasingOutletView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PurchasingBloc, PurchasingStates>(
         builder: (context, state) {
-      return Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.height / AppSize.s180,
-              horizontal: MediaQuery.of(context).size.width / AppSize.s50,
+      if (CacheHelper.getData(key: SharedKey.roleCreate)
+              .toString()
+              .contains("purchasing") ||
+          CacheHelper.getData(key: SharedKey.roleEdit)
+              .toString()
+              .contains("purchasing") ||
+          CacheHelper.getData(key: SharedKey.roleDelete)
+              .toString()
+              .contains("purchasing") ||
+          CacheHelper.getData(key: SharedKey.roleSpecial)
+              .toString()
+              .contains("reassignPurchasing")) {
+        return Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height / AppSize.s180,
+                horizontal: MediaQuery.of(context).size.width / AppSize.s50,
+              ),
+              child: SharedWidget.defaultTextFormField(
+                  hint: AppStrings.restaurant.tr(),
+                  textInputType: TextInputType.text,
+                  onFieldSubmitted: (value) {
+                    PurchasingBloc.get(context).searchPurchesing(value);
+                  }),
             ),
-            child: SharedWidget.defaultTextFormField(
-                hint: AppStrings.restaurant.tr(),
-                textInputType: TextInputType.text,
-                onFieldSubmitted: (value) {
-                  PurchasingBloc.get(context).searchPurchesing(value);
-                }),
+            Expanded(
+                child: ConditionalBuilderRec(
+              condition: state is PurchsingSuccessState ||
+                  state is PurchsingSearchSuccessState,
+              builder: (context) => itemBuilder(
+                PurchasingBloc.get(context).purchsingModel.resturant,
+              ),
+              fallback: (context) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+            )),
+            SharedWidget.footer(context),
+          ],
+        );
+      } else {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height / AppSize.s180,
+            horizontal: MediaQuery.of(context).size.width / AppSize.s50,
           ),
-          Expanded(
-              child: ConditionalBuilderRec(
-            condition: state is PurchsingSuccessState ||
-                state is PurchsingSearchSuccessState,
-            builder: (context) => itemBuilder(
-              PurchasingBloc.get(context).purchsingModel.resturant,
+          child: Center(
+            child: Text(
+              AppStrings.permissionStringWarning.tr(),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
-            fallback: (context) => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          )),
-          SharedWidget.footer(context),
-        ],
-      );
+          ),
+        );
+      }
     });
   }
 

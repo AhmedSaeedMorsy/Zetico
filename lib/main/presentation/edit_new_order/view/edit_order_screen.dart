@@ -12,6 +12,7 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/new_orders_model.dart';
 
 class EditNewOrderScreen extends StatelessWidget {
@@ -195,7 +196,9 @@ class EditNewOrderScreen extends StatelessWidget {
                                   .currentValue
                                   .toString(),
                               orderDate: date,
-                              userId: "1",
+                              userId: CacheHelper.getData(
+                              key: SharedKey.memberId,
+                            ),
                             );
                           },
                           AppStrings.confirm.tr(),

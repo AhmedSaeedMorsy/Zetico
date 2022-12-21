@@ -5,11 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zetico/main/presentation/purchasing_team/view/purchasing_team_screen.dart';
 import 'package:zetico/main/presentation/verified_outlet/controller/verfied_bloc.dart';
 import 'package:zetico/main/presentation/verified_outlet/controller/verfied_states.dart';
+import '../../../../app/common/widget.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/verfied_model.dart';
 import '../../edit_verified/view/edit_verified_screen.dart';
 
@@ -170,14 +172,24 @@ Future showVerifiedDialog(
                       return Row(
                         children: [
                           button(context, AppStrings.assign.tr(), () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PurchasingTeamScreen(
-                                  outlet: outlet,
+                            if (CacheHelper.getData(key: SharedKey.roleCreate)
+                                .toString()
+                                .contains("verified")) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PurchasingTeamScreen(
+                                    outlet: outlet,
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            } else {
+                              SharedWidget.toast(
+                                backgroundColor: ColorManager.yellow,
+                                message:
+                                    AppStrings.permissionStringWarning.tr(),
+                              );
+                            }
                           }),
                           SizedBox(
                             width:
@@ -187,13 +199,24 @@ Future showVerifiedDialog(
                             context,
                             AppStrings.edit.tr(),
                             () {
-                              Navigator.push(
+                              if (CacheHelper.getData(key: SharedKey.roleEdit)
+                                  .toString()
+                                  .contains("verified")) {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => EditVerifiedScreen(
                                       outlet: outlet,
                                     ),
-                                  ));
+                                  ),
+                                );
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
                             },
                           ),
                           SizedBox(
@@ -204,9 +227,19 @@ Future showVerifiedDialog(
                             context,
                             AppStrings.declined.tr(),
                             () {
-                              VerfiedBloc.get(context).declinedVerifiedOutlet(
-                                outletId: outlet.outletId,
-                              );
+                              if (CacheHelper.getData(key: SharedKey.roleDelete)
+                                  .toString()
+                                  .contains("verified")) {
+                                VerfiedBloc.get(context).declinedVerifiedOutlet(
+                                  outletId: outlet.outletId,
+                                );
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
                             },
                           ),
                         ],

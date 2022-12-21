@@ -115,4 +115,14 @@ class ApiConstant {
       "https://zeitco.linemedia.live/api/driverApp.php/IssueOrder";
   static String loginUserPath =
       "https://zeitco.linemedia.live/api/driverApp.php/login";
+  static String checkInPath =
+      "https://zeitco.linemedia.live/api/driverApp.php/checkIn";
+  static String checkOutPath =
+      "https://zeitco.linemedia.live/api/driverApp.php/checkOut";
+  static String getDeclinedPath =
+      "https://zeitco.linemedia.live/api/outlet.php/decline";
+  static String getOutletsPath =
+      "https://zeitco.linemedia.live/api/special.php/list";
+  static String getRoles =
+      "https://zeitco.linemedia.live/api/special.php/userId";
 }

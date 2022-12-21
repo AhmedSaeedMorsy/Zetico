@@ -168,8 +168,11 @@ class AppStrings {
   static String issueDate = "issueDate";
   static String issueComment = "issueComment";
   static String delete = "delete";
-  static String issuedString = "I can't collect Order";
+  static String issuedString = "issuedString";
   static String emailValidation = "emailValidation";
   static String passwordValidation = "passwordValidation";
   static String messageError = "messageError";
+  static String required = "required";
+  static String permissionStringWarning = "permissionStringWarning";
+  static String checkInString = "checkInString";
 }

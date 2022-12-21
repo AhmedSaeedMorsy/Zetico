@@ -172,5 +172,9 @@
       "issueDate": "Issue Date : ",
       "issueComment": "Issue Comment : ",
       "delete": "Delete",
-      "messageError": "The email or password is incorrect"
+      "messageError": "The email or password is incorrect",
+      "issuedString": "I can't collect Order",
+      "required": "Required",
+      "permissionStringWarning": "You do not have permission for this action",
+      "checkInString": "You must be check in"
 }

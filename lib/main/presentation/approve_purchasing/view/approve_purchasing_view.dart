@@ -211,7 +211,7 @@ class ApprovePurchasingView extends StatelessWidget {
                               child: MaterialButton(
                                 onPressed: () {
                                   controllerLocation.text =
-                                      "${MainBloc.get(context).longitude} , ${MainBloc.get(context).latitude}";
+                                      "${MainBloc.get(context).latitude} , ${MainBloc.get(context).longitude}";
                                 },
                                 child: Text(
                                   AppStrings.getLocation.tr(),

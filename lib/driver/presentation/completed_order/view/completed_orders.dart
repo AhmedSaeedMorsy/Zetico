@@ -5,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zetico/driver/presentation/completed_order/controller/completed_order_bloc.dart';
 import '../../../../app/common/widget.dart';
-import '../../../../app/resources/assets_manager.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../model/collected_order_model.dart';
 import '../controller/completed_order_states.dart';
 import 'completed_orders_details.dart';
@@ -28,31 +28,9 @@ class CompletedOrders extends StatelessWidget {
               ),
               child: IconButton(
                 onPressed: () {},
-                icon: Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    const Image(
-                      image: AssetImage(
-                        AssetsManager.notification,
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.width / AppSize.s150,
-                      ),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      decoration: BoxDecoration(
-                        color: ColorManager.error,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text(
-                        AppStrings.three,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                              fontSize: FontSizeManager.s12.sp,
-                            ),
-                      ),
-                    ),
-                  ],
+                icon: Icon(
+                  Icons.notifications_sharp,
+                  size: AppSize.s30.w,
                 ),
               ),
             ),
@@ -67,8 +45,12 @@ class CompletedOrders extends StatelessWidget {
           ),
         ),
         body: BlocProvider(
-            create: (context) =>
-                CompletedOrderBloc()..getCompletedOrder(driverId: "4"),
+            create: (context) => CompletedOrderBloc()
+              ..getCompletedOrder(
+                driverId: CacheHelper.getData(
+                  key: SharedKey.memberId,
+                ),
+              ),
             child: BlocBuilder<CompletedOrderBloc, CompletedOrderStates>(
               builder: (context, state) {
                 return Column(

@@ -51,7 +51,7 @@ class EditPurchasingView extends StatelessWidget {
       controllerArabicName.text = model.outletNameAr!;
       controllerPhone.text = model.phone!;
       controllerCustomerName.text = model.custName!;
-      controllerNote.text = model.notes!;
+      controllerNote.text = model.notes??"";
       controllerAddress.text = model.addressDetail!;
       controllerLocation.text = model.location!;
       controllerPrice.text = model.priceKg!;
@@ -199,14 +199,14 @@ class EditPurchasingView extends StatelessWidget {
                                 child: MaterialButton(
                                   onPressed: () {
                                     controllerLocation.text =
-                                        "${MainBloc.get(context).longitude} , ${MainBloc.get(context).latitude}";
+                                        "${MainBloc.get(context).latitude} , ${MainBloc.get(context).longitude}";
                                   },
                                   child: Text(
                                     AppStrings.getLocation.tr(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .displayMedium
-                                        !.copyWith(
+                                        .displayMedium!
+                                        .copyWith(
                                           fontSize: FontSizeManager.s14.sp,
                                         ),
                                   ),
@@ -266,11 +266,12 @@ class EditPurchasingView extends StatelessWidget {
                           ),
                           SharedWidget.dropDown(
                             hintText: payment,
-                            list:[
-    AppStrings.cashOnDelivery.tr(),
-    AppStrings.postPoned.tr(),
-  ],
-                            validateText: AppStrings.paymentMethodValidateText.tr(),
+                            list: [
+                              AppStrings.cashOnDelivery.tr(),
+                              AppStrings.postPoned.tr(),
+                            ],
+                            validateText:
+                                AppStrings.paymentMethodValidateText.tr(),
                             onChanged: (value) {
                               payment = value!;
                             },
@@ -297,11 +298,11 @@ class EditPurchasingView extends StatelessWidget {
                             hintText: oilType,
                             validateText: AppStrings.oilTypeValidateText.tr(),
                             list: [
-    AppStrings.canola.tr(),
-    AppStrings.sunFlower.tr(),
-    AppStrings.palm.tr(),
-    AppStrings.olive.tr(),
-  ],
+                              AppStrings.canola.tr(),
+                              AppStrings.sunFlower.tr(),
+                              AppStrings.palm.tr(),
+                              AppStrings.olive.tr(),
+                            ],
                             onChanged: (value) {
                               oilType = value!;
                             },
@@ -372,7 +373,8 @@ class EditPurchasingView extends StatelessWidget {
                               AppStrings.fiftyHanderdToTowHandred,
                               AppStrings.towHandred,
                             ],
-                            validateText: AppStrings.outletSpaceValidateText.tr(),
+                            validateText:
+                                AppStrings.outletSpaceValidateText.tr(),
                             onChanged: (value) {
                               outletSpace = value!;
                             },
@@ -402,7 +404,7 @@ class EditPurchasingView extends StatelessWidget {
                       height: AppSize.s100.h,
                       child: SharedWidget.defaultTextFormField(
                         controller: controllerNote,
-                         paddding: AppSize.s30,
+                        paddding: AppSize.s30,
                         textInputType: TextInputType.text,
                         minLines: 5,
                         maxLines: 5,
@@ -454,8 +456,8 @@ class EditPurchasingView extends StatelessWidget {
                             AppStrings.submit.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyMedium
-                                !.copyWith(
+                                .bodyMedium!
+                                .copyWith(
                                   fontSize: FontSizeManager.s12.sp,
                                 ),
                           ),
@@ -483,8 +485,8 @@ class EditPurchasingView extends StatelessWidget {
                             AppStrings.cancel.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .displayMedium
-                                !.copyWith(
+                                .displayMedium!
+                                .copyWith(
                                   fontSize: FontSizeManager.s12.sp,
                                 ),
                           ),

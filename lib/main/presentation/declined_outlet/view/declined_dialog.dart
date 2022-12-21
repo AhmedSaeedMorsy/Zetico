@@ -5,8 +5,11 @@ import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../models/declined_model.dart';
 
-Future showDeclinedDialog(BuildContext context) => showDialog(
+Future showDeclinedDialog(
+        BuildContext context, DeclinedResturantOutletModel outlet) =>
+    showDialog(
       context: context,
       builder: (context) => Container(
         decoration: BoxDecoration(
@@ -16,7 +19,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
           color: ColorManager.lightGrey,
         ),
         margin: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height / AppSize.s20,
+          vertical: MediaQuery.of(context).size.height / AppSize.s8,
           horizontal: MediaQuery.of(context).size.height / AppSize.s20,
         ),
         child: Padding(
@@ -42,7 +45,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.outletNameEn.tr(),
-                  AppStrings.outletNameEn.tr(),
+                  outlet.outletNameEn!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -50,7 +53,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.outletNameAr.tr(),
-                  AppStrings.outletNameAr.tr(),
+                  outlet.outletNameAr!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -58,7 +61,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.city.tr(),
-                  AppStrings.city.tr(),
+                  outlet.cityEn!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -66,7 +69,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.area.tr(),
-                  AppStrings.area.tr(),
+                  outlet.areaEn!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -74,7 +77,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.phone.tr(),
-                  AppStrings.phone.tr(),
+                  outlet.phone!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -82,7 +85,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.address.tr(),
-                  AppStrings.address.tr(),
+                  outlet.addressDetail!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -90,112 +93,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.location.tr(),
-                  AppStrings.location.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                headText(
-                  context,
-                  AppStrings.contactDetails.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s80,
-                ),
-                driver(),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.contactName.tr(),
-                  AppStrings.contactName.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.mobile.tr(),
-                  AppStrings.mobile.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.title.tr(),
-                  AppStrings.title.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                headText(
-                  context,
-                  AppStrings.secondContactDetails.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s80,
-                ),
-                driver(),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.contactName.tr(),
-                  AppStrings.contactName.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.mobile.tr(),
-                  AppStrings.mobile.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.title.tr(),
-                  AppStrings.title.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                headText(
-                  context,
-                  AppStrings.orderOutletHistory.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s80,
-                ),
-                driver(),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.totalCollected.tr(),
-                  AppStrings.totalCollected.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.lastCollectionDate.tr(),
-                  AppStrings.lastCollectionDate.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.driver.tr(),
-                  AppStrings.driver.tr(),
+                  outlet.location!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -213,40 +111,8 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 ),
                 bodyText(
                   context,
-                  AppStrings.purchasedBy.tr(),
-                  AppStrings.purchasedBy.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.agreementBy.tr(),
-                  AppStrings.agreementBy.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.agreementStartDate.tr(),
-                  AppStrings.agreementStartDate.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
-                  AppStrings.agreementEndDate.tr(),
-                  AppStrings.agreementEndDate.tr(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                bodyText(
-                  context,
                   AppStrings.pricePerKg.tr(),
-                  AppStrings.pricePerKg.tr(),
+                  outlet.priceKg!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -254,7 +120,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.paymentMethod.tr(),
-                  AppStrings.paymentMethod.tr(),
+                  outlet.payment!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -262,7 +128,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.oilType.tr(),
-                  AppStrings.oilType.tr(),
+                  outlet.oilType!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -270,7 +136,7 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.estimatedQt.tr(),
-                  AppStrings.estimatedQt.tr(),
+                  outlet.quantity!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -278,37 +144,12 @@ Future showDeclinedDialog(BuildContext context) => showDialog(
                 bodyText(
                   context,
                   AppStrings.spaceOutlet.tr(),
-                  AppStrings.spaceOutlet.tr(),
+                  outlet.outletSpace!,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
                 ),
-                Row(
-                  children: [
-                    button(context, AppStrings.order.tr(), () {}),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / AppSize.s50,
-                    ),
-                    button(
-                      context,
-                      AppStrings.edit.tr(),
-                      () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => EditOutletScreen()));
-                      },
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / AppSize.s50,
-                    ),
-                    button(
-                      context,
-                      AppStrings.declined.tr(),
-                      () {},
-                    ),
-                  ],
-                ),
+                button(context, AppStrings.reAssign.tr(), () {}),
               ],
             ),
           ),

@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, library_prefixes
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,6 @@ import 'package:zetico/driver/model/issues_model.dart';
 import 'package:zetico/driver/presentation/collection/controller/collection_order_bloc.dart';
 import 'package:zetico/driver/presentation/collection/controller/collection_order_states.dart';
 import '../../../../app/common/widget.dart';
-import '../../../../app/resources/assets_manager.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
@@ -17,11 +16,13 @@ import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
 import '../../../model/on_progress_order_model.dart';
 import 'dialog_isuues_collection.dart';
+import 'dart:ui' as UI;
 
 class CollectionView extends StatelessWidget {
   final nameController = TextEditingController();
   final problemController = TextEditingController();
   ItemModel? result;
+  final formKey = GlobalKey<FormState>();
   OnProgressItemModel order;
   final controllerNote = TextEditingController();
   CollectionView({
@@ -82,36 +83,13 @@ class CollectionView extends StatelessWidget {
                                 color: ColorManager.white,
                               ),
                             ),
-                            Stack(
-                              alignment: Alignment.topRight,
-                              children: [
-                                Image(
-                                  width: AppSize.s20.w,
-                                  image: const AssetImage(
-                                    AssetsManager.notification,
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.all(
-                                    MediaQuery.of(context).size.width /
-                                        AppSize.s100,
-                                  ),
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  decoration: BoxDecoration(
-                                    color: ColorManager.error,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Text(
-                                    AppStrings.three,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                          fontSize: FontSizeManager.s14.sp,
-                                        ),
-                                  ),
-                                ),
-                              ],
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.notifications_sharp,
+                                size: AppSize.s30.w,
+                                color: ColorManager.white,
+                              ),
                             ),
                           ],
                         ),
@@ -175,56 +153,7 @@ class CollectionView extends StatelessWidget {
                               height: MediaQuery.of(context).size.height /
                                   AppSize.s16,
                             ),
-                            Row(
-                              children: [
-                                numberpicker(
-                                  context,
-                                  CollectionOrderBloc.get(context)
-                                      .currentThousandsValue,
-                                  (value) {
-                                    CollectionOrderBloc.get(context)
-                                        .changeThousandsNumberPicker(value);
-                                  },
-                                ),
-                                numberpicker(
-                                    context,
-                                    CollectionOrderBloc.get(context)
-                                        .currentHundredValue, (value) {
-                                  CollectionOrderBloc.get(context)
-                                      .changeHundredNumberPicker(value);
-                                }),
-                                numberpicker(
-                                    context,
-                                    CollectionOrderBloc.get(context)
-                                        .currentDozensValue, (value) {
-                                  CollectionOrderBloc.get(context)
-                                      .changeDozensNumberPicker(value);
-                                }),
-                                numberpicker(
-                                    context,
-                                    CollectionOrderBloc.get(context)
-                                        .currentOnesValue, (value) {
-                                  CollectionOrderBloc.get(context)
-                                      .changeOnesNumberPicker(value);
-                                }),
-                                Text(
-                                  AppStrings.dot,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        fontSize: FontSizeManager.s22,
-                                      ),
-                                ),
-                                numberpicker(
-                                    context,
-                                    CollectionOrderBloc.get(context)
-                                        .currentDecimalValue, (value) {
-                                  CollectionOrderBloc.get(context)
-                                      .changeDecimalNumberPicker(value);
-                                }),
-                              ],
-                            ),
+                            numberPickerItem(context),
                             SizedBox(
                               height: MediaQuery.of(context).size.height /
                                   AppSize.s22,
@@ -282,7 +211,7 @@ class CollectionView extends StatelessWidget {
                                   },
                                 ),
                                 Text(
-                                  AppStrings.issuedString,
+                                  AppStrings.issuedString.tr(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyLarge!
@@ -316,13 +245,15 @@ class CollectionView extends StatelessWidget {
                                     if (CollectionOrderBloc.get(context)
                                             .isChecked ==
                                         true) {
-                                      CollectionOrderBloc.get(context)
-                                          .postIssuesOrder(
-                                        orderId: order.onProgressId,
-                                        issueId: result!.issuedId!,
-                                        issueDate: DateTime.now().toString(),
-                                        issueComment: controllerNote.text,
-                                      );
+                                      if (formKey.currentState!.validate()) {
+                                        CollectionOrderBloc.get(context)
+                                            .postIssuesOrder(
+                                          orderId: order.onProgressId,
+                                          issueId: result!.issuedId!,
+                                          issueDate: DateTime.now().toString(),
+                                          issueComment: controllerNote.text,
+                                        );
+                                      }
                                     } else if (CollectionOrderBloc.get(context)
                                             .quantity !=
                                         0) {
@@ -368,6 +299,52 @@ class CollectionView extends StatelessWidget {
     });
   }
 
+  Widget numberPickerItem(context) {
+    UI.TextDirection direction = UI.TextDirection.ltr;
+
+    return Directionality(
+      textDirection: direction,
+      child: Row(
+        children: [
+          numberpicker(
+            context,
+            CollectionOrderBloc.get(context).currentThousandsValue,
+            (value) {
+              CollectionOrderBloc.get(context)
+                  .changeThousandsNumberPicker(value);
+            },
+          ),
+          numberpicker(
+              context, CollectionOrderBloc.get(context).currentHundredValue,
+              (value) {
+            CollectionOrderBloc.get(context).changeHundredNumberPicker(value);
+          }),
+          numberpicker(
+              context, CollectionOrderBloc.get(context).currentDozensValue,
+              (value) {
+            CollectionOrderBloc.get(context).changeDozensNumberPicker(value);
+          }),
+          numberpicker(
+              context, CollectionOrderBloc.get(context).currentOnesValue,
+              (value) {
+            CollectionOrderBloc.get(context).changeOnesNumberPicker(value);
+          }),
+          Text(
+            AppStrings.dot,
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontSize: FontSizeManager.s22,
+                ),
+          ),
+          numberpicker(
+              context, CollectionOrderBloc.get(context).currentDecimalValue,
+              (value) {
+            CollectionOrderBloc.get(context).changeDecimalNumberPicker(value);
+          }),
+        ],
+      ),
+    );
+  }
+
   Widget numberpicker(context, currentValue, void Function(int) onChanged) =>
       NumberPicker(
         value: currentValue,
@@ -378,55 +355,64 @@ class CollectionView extends StatelessWidget {
         onChanged: onChanged,
       );
   Widget problemItem(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          AppStrings.problem.tr(),
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: ColorManager.black,
+    return Form(
+      key: formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            AppStrings.problem.tr(),
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: ColorManager.black,
+                ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height / AppSize.s80,
+          ),
+          SharedWidget.defaultTextFormField(
+            controller: problemController,
+            textInputType: TextInputType.none,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return AppStrings.required.tr();
+              }
+              return null;
+            },
+            onTap: () async {
+              result = await showDialogCollection(context);
+              problemController.text = result!.issuedName!;
+            },
+            suffixIcon: IconButton(
+              icon: const Icon(
+                Icons.arrow_drop_down,
               ),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height / AppSize.s80,
-        ),
-        SharedWidget.defaultTextFormField(
-          controller: problemController,
-          textInputType: TextInputType.none,
-          onTap: () async {
-            result = await showDialogCollection(context);
-            problemController.text = result!.issuedName!;
-          },
-          suffixIcon: IconButton(
-            icon: const Icon(
-              Icons.arrow_drop_down,
+              onPressed: () {},
             ),
-            onPressed: () {},
           ),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height / AppSize.s80,
-        ),
-        Text(
-          AppStrings.note.tr(),
-          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: ColorManager.black,
-              ),
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height / AppSize.s80,
-        ),
-        SizedBox(
-          height: AppSize.s100.h,
-          child: SharedWidget.defaultTextFormField(
-            paddding: AppSize.s30,
-            controller: controllerNote,
-            textInputType: TextInputType.text,
-            minLines: 5,
-            maxLines: 5,
+          SizedBox(
+            height: MediaQuery.of(context).size.height / AppSize.s80,
           ),
-        ),
-      ],
+          Text(
+            AppStrings.note.tr(),
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: ColorManager.black,
+                ),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height / AppSize.s80,
+          ),
+          SizedBox(
+            height: AppSize.s100.h,
+            child: SharedWidget.defaultTextFormField(
+              paddding: AppSize.s30,
+              controller: controllerNote,
+              textInputType: TextInputType.text,
+              minLines: 5,
+              maxLines: 5,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

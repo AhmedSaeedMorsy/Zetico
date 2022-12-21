@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:zetico/app/common/widget.dart';
 import 'package:zetico/app/resources/assets_manager.dart';
 import 'package:zetico/app/resources/color_manager.dart';
 import 'package:zetico/app/resources/font_manager.dart';
@@ -10,7 +10,6 @@ import 'package:zetico/app/resources/strings_manager.dart';
 import 'package:zetico/app/services/shared_prefrences/cache_helper.dart';
 import 'package:zetico/main/main_controller/main_bloc.dart';
 import 'package:zetico/main/main_controller/main_states.dart';
-import '../../../../app/resources/language_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/values_manager.dart';
 
@@ -23,8 +22,38 @@ class HomeScreen extends StatelessWidget {
       create: (context) => MainBloc()
         ..getCity()
         ..getCurrentPosition()
-        ..getLongitudeAndLatitude(),
-      child: BlocBuilder<MainBloc, MainStates>(
+        ..getLongitudeAndLatitude()
+        ..getRoles(
+          userId: CacheHelper.getData(
+            key: SharedKey.memberId,
+          ),
+        ),
+      child: BlocConsumer<MainBloc, MainStates>(
+        listener: (context, state) {
+          CacheHelper.removeData(key: SharedKey.roleCreate);
+          CacheHelper.removeData(key: SharedKey.roleDelete);
+          CacheHelper.removeData(key: SharedKey.roleEdit);
+          CacheHelper.removeData(key: SharedKey.roleSpecial);
+
+          if (state is RolesSuccessState) {
+            CacheHelper.setData(
+              key: SharedKey.roleCreate,
+              value: MainBloc.get(context).rolesModel.roles[0].roleCreate,
+            );
+            CacheHelper.setData(
+              key: SharedKey.roleDelete,
+              value: MainBloc.get(context).rolesModel.roles[0].roleDelete,
+            );
+            CacheHelper.setData(
+              key: SharedKey.roleEdit,
+              value: MainBloc.get(context).rolesModel.roles[0].roleEdit,
+            );
+            CacheHelper.setData(
+              key: SharedKey.roleSpecial,
+              value: MainBloc.get(context).rolesModel.roles[0].roleSpecial,
+            );
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
@@ -46,7 +75,15 @@ class HomeScreen extends StatelessWidget {
                     ),
               ),
             ),
-            drawer: drawer(context),
+            drawer: SharedWidget.drawer(
+              context: context,
+              name: CacheHelper.getData(
+                key: SharedKey.memberName,
+              ),
+              phone: CacheHelper.getData(
+                key: SharedKey.memberPhone,
+              ),
+            ),
             body: Padding(
               padding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).size.height / AppSize.s50,
@@ -59,46 +96,37 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: InkWell(
-                            onTap: () {},
-                            child: bodyItem(
-                              function: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  Routes.surveyedHomeRoute,
-                                );
-                              },
-                              text: AppStrings.surveyedOutlet.tr(),
-                              image: AssetsManager.survyedOutlet,
-                              context: context,
-                            ),
+                          child: bodyItem(
+                            function: () {
+                              Navigator.pushNamed(
+                                context,
+                                Routes.surveyedHomeRoute,
+                              );
+                            },
+                            text: AppStrings.surveyedOutlet.tr(),
+                            image: AssetsManager.survyedOutlet,
+                            context: context,
                           ),
                         ),
                         Expanded(
-                          child: InkWell(
-                            onTap: () {},
-                            child: bodyItem(
-                              context: context,
-                              function: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  Routes.purchasedHomeRoute,
-                                );
-                              },
-                              image: AssetsManager.purchased,
-                              text: AppStrings.purchased.tr(),
-                            ),
+                          child: bodyItem(
+                            context: context,
+                            function: () {
+                              Navigator.pushNamed(
+                                context,
+                                Routes.purchasedHomeRoute,
+                              );
+                            },
+                            image: AssetsManager.purchased,
+                            text: AppStrings.purchased.tr(),
                           ),
                         ),
                         Expanded(
-                          child: InkWell(
-                            onTap: () {},
-                            child: bodyItem(
-                              context: context,
-                              function: () {},
-                              image: AssetsManager.registeredOutlet,
-                              text: AppStrings.onlineRegOutlet.tr(),
-                            ),
+                          child: bodyItem(
+                            context: context,
+                            function: () {},
+                            image: AssetsManager.registeredOutlet,
+                            text: AppStrings.onlineRegOutlet.tr(),
                           ),
                         ),
                       ],
@@ -106,51 +134,71 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: InkWell(
-                            onTap: () {},
-                            child: bodyItem(
-                              context: context,
-                              function: () {
+                          child: bodyItem(
+                            context: context,
+                            function: () {
+                              if (CacheHelper.getData(
+                                key: SharedKey.roleCreate,
+                              ).toString().contains("order")) {
                                 Navigator.pushNamed(
                                   context,
                                   Routes.manualOrderRoute,
                                 );
-                              },
-                              image: AssetsManager.manualOrder,
-                              text: AppStrings.manualOrder.tr(),
-                            ),
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
+                            },
+                            image: AssetsManager.manualOrder,
+                            text: AppStrings.manualOrder.tr(),
                           ),
                         ),
                         Expanded(
-                          child: InkWell(
-                            onTap: () {},
-                            child: bodyItem(
-                              context: context,
-                              function: () {
+                          child: bodyItem(
+                            context: context,
+                            function: () {
+                              if (CacheHelper.getData(
+                                key: SharedKey.roleCreate,
+                              ).toString().contains("order")) {
                                 Navigator.pushNamed(
                                   context,
                                   Routes.ordersHomeRoute,
                                 );
-                              },
-                              image: AssetsManager.orders,
-                              text: AppStrings.orders.tr(),
-                            ),
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
+                            },
+                            image: AssetsManager.orders,
+                            text: AppStrings.orders.tr(),
                           ),
                         ),
                         Expanded(
-                          child: InkWell(
-                            onTap: () {},
-                            child: bodyItem(
-                              context: context,
-                              function: () {
+                          child: bodyItem(
+                            context: context,
+                            function: () {
+                              if (CacheHelper.getData(key: SharedKey.roleCreate)
+                                  .toString()
+                                  .contains("outlet")) {
                                 Navigator.pushNamed(
                                   context,
                                   Routes.addOutletRoute,
                                 );
-                              },
-                              image: AssetsManager.addOutlet,
-                              text: AppStrings.addOutlet.tr(),
-                            ),
+                              } else {
+                                SharedWidget.toast(
+                                    backgroundColor: ColorManager.yellow,
+                                    message: AppStrings.permissionStringWarning
+                                        .tr());
+                              }
+                            },
+                            image: AssetsManager.addOutlet,
+                            text: AppStrings.addOutlet.tr(),
                           ),
                         ),
                       ],
@@ -158,42 +206,46 @@ class HomeScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: InkWell(
-                            onTap: () {},
-                            child: bodyItem(
-                              context: context,
-                              function: () {
-                                Navigator.pushNamed(
-                                    context, Routes.viewOutletRoute);
-                              },
-                              image: AssetsManager.survyedOutlet,
-                              text: AppStrings.viewOutlet.tr(),
-                            ),
+                          child: bodyItem(
+                            context: context,
+                            function: () {
+                              Navigator.pushNamed(
+                                context,
+                                Routes.viewOutletRoute,
+                              );
+                            },
+                            image: AssetsManager.survyedOutlet,
+                            text: AppStrings.viewOutlet.tr(),
                           ),
                         ),
                         Expanded(
-                          child: InkWell(
-                            onTap: () {},
-                            child: bodyItem(
-                              context: context,
-                              function: () {},
-                              image: AssetsManager.warehouse,
-                              text: AppStrings.warehouse.tr(),
-                            ),
+                          child: bodyItem(
+                            context: context,
+                            function: () {},
+                            image: AssetsManager.warehouse,
+                            text: AppStrings.warehouse.tr(),
                           ),
                         ),
                         Expanded(
-                          child: InkWell(
-                            onTap: () {},
-                            child: bodyItem(
-                              context: context,
-                              function: () {
+                          child: bodyItem(
+                            context: context,
+                            function: () {
+                              if (CacheHelper.getData(
+                                key: SharedKey.roleSpecial,
+                              ).toString().contains("reassignDecline")) {
                                 Navigator.pushNamed(
-                                    context, Routes.declinedOutletRoute);
-                              },
-                              image: AssetsManager.survyedOutlet,
-                              text: AppStrings.declinedOutlet.tr(),
-                            ),
+                                  context,
+                                  Routes.declinedOutletRoute,
+                                );
+                              } else {
+                                SharedWidget.toast(
+                                    backgroundColor: ColorManager.yellow,
+                                    message: AppStrings.permissionStringWarning
+                                        .tr());
+                              }
+                            },
+                            image: AssetsManager.survyedOutlet,
+                            text: AppStrings.declinedOutlet.tr(),
                           ),
                         ),
                       ],
@@ -240,95 +292,4 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       );
-
-  Widget drawer(context) => Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-              decoration:
-                  const BoxDecoration(color: ColorManager.thirdgradientColor),
-              padding: EdgeInsets.all(
-                MediaQuery.of(context).size.height / AppSize.s50,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    AppStrings.name.tr(),
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                          fontSize: FontSizeManager.s18.sp,
-                        ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height / AppSize.s80,
-                  ),
-                  Text(
-                    AppStrings.phone.tr(),
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                          fontSize: FontSizeManager.s18.sp,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / AppSize.s22,
-            ),
-            ListTile(
-              leading: Image.asset(
-                AssetsManager.settings,
-              ),
-              title: Text(
-                AppStrings.language.tr(),
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              onTap: () {
-                changeLanguage(context);
-              },
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / AppSize.s22,
-            ),
-            ListTile(
-              leading: Image.asset(
-                AssetsManager.settings,
-              ),
-              title: Text(
-                AppStrings.editProfile.tr(),
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              onTap: () {},
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / AppSize.s22,
-            ),
-            ListTile(
-              leading: Image.asset(
-                AssetsManager.logOut,
-              ),
-              title: Text(
-                AppStrings.logOut.tr(),
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              onTap: () {
-                CacheHelper.removeData(
-                  key: SharedKey.role,
-                );
-                CacheHelper.removeData(
-                  key: SharedKey.token,
-                );
-                Navigator.pushReplacementNamed(
-                  context,
-                  Routes.loginRoute,
-                );
-              },
-            ),
-          ],
-        ),
-      );
-  void changeLanguage(context) {
-    changeAppLanguage();
-    Phoenix.rebirth(context);
-  }
 }

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zetico/app/constant/api_constant.dart';
 import 'package:zetico/app/resources/color_manager.dart';
 import 'package:zetico/app/services/dio_helper/dio_helper.dart';
+import 'package:zetico/main/models/outlets_model.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../models/outlet_price_model.dart';
 import 'manual_order_states.dart';
@@ -87,6 +88,19 @@ class ManualOrderBloc extends Cubit<ManualOrderStates> {
       emit(AddOrderSuccessState());
     }).catchError((error) {
       emit(AddOrderErrorState(error.toString()));
+    });
+  }
+
+  OutletModel outletModel = OutletModel();
+  void getOutlets() {
+    emit(OutletsLoadingState());
+    DioHelper.getData(
+      path: ApiConstant.getOutletsPath,
+    ).then((value) {
+       outletModel = OutletModel.fromjson(value.data);
+      emit(OutletsSuccessState());
+    }).catchError((error) {
+      emit(OutletsErrorState(error.toString()));
     });
   }
 }

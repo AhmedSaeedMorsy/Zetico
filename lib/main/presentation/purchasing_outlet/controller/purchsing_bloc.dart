@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zetico/app/constant/api_constant.dart';
+import 'package:zetico/main/presentation/purchasing_outlet/controller/purchasing_states.dart';
 
 import '../../../../app/services/dio_helper/dio_helper.dart';
 import '../../../models/verfied_model.dart';
-import 'purchasing_states.dart';
 
 class PurchasingBloc extends Cubit<PurchasingStates> {
   PurchasingBloc() : super(PurchsingInitState());

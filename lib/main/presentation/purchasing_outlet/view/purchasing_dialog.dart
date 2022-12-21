@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zetico/main/presentation/approve_purchasing/view/approve_purchasig_screen.dart';
-import 'package:zetico/main/presentation/purchasing_outlet/controller/purchasing_states.dart';
 import 'package:zetico/main/presentation/purchasing_outlet/controller/purchsing_bloc.dart';
+import '../../../../app/common/widget.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/verfied_model.dart';
 import '../../edit_purchasing/view/edit_purchasing_screen.dart';
 import '../../re_assign_purchasing_team/view/re_assign_purchasing_team_screen.dart';
+import '../controller/purchasing_states.dart';
 
 Future showPurchasingDialog(
         BuildContext context, VerfiedResturantOutletModel outlet) =>
@@ -159,71 +161,114 @@ Future showPurchasingDialog(
                 BlocProvider(
                   create: (context) => PurchasingBloc(),
                   child: BlocConsumer<PurchasingBloc, PurchasingStates>(
-                      listener: (context, state) {
-                    if (state is DeclinedPurchasingSuccessState) {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        Routes.homeRoute,
-                      );
-                    }
-                  }, builder: (context, state) {
-                    return Row(
-                      children: [
-                        button(context, AppStrings.approve.tr(), () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ApprovePurchasingScreen(
-                                outlet: outlet,
-                              ),
-                            ),
-                          );
-                        }),
-                        SizedBox(
-                          width:
-                              MediaQuery.of(context).size.width / AppSize.s100,
-                        ),
-                        button(context, AppStrings.reAssign.tr(), () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    ReAssignPurchasingTeamScreen(
-                                      outlet: outlet,
-                                    )),
-                          );
-                        }),
-                        SizedBox(
-                          width:
-                              MediaQuery.of(context).size.width / AppSize.s100,
-                        ),
-                        button(
+                    listener: (context, state) {
+                      if (state is DeclinedPurchasingSuccessState) {
+                        Navigator.pushReplacementNamed(
                           context,
-                          AppStrings.edit.tr(),
-                          () {
-                            Navigator.push(
+                          Routes.homeRoute,
+                        );
+                      }
+                    },
+                    builder: (context, state) {
+                      return Row(
+                        children: [
+                          button(context, AppStrings.approve.tr(), () {
+                            if (CacheHelper.getData(key: SharedKey.roleCreate)
+                                .toString()
+                                .contains("purchasing")) {
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => EditPurchasingScreen(
-                                          model: outlet,
-                                        )));
-                          },
-                        ),
-                        SizedBox(
-                          width:
-                              MediaQuery.of(context).size.width / AppSize.s100,
-                        ),
-                        button(
-                          context,
-                          AppStrings.declined.tr(),
-                          () {
-                            PurchasingBloc.get(context)
-                                .declinedPurchasing(outletId: outlet.outletId);
-                          },
-                        ),
-                      ],
-                    );
-                  }),
+                                  builder: (context) => ApprovePurchasingScreen(
+                                    outlet: outlet,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              SharedWidget.toast(
+                                backgroundColor: ColorManager.yellow,
+                                message:
+                                    AppStrings.permissionStringWarning.tr(),
+                              );
+                            }
+                          }),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width /
+                                AppSize.s100,
+                          ),
+                          button(context, AppStrings.reAssign.tr(), () {
+                            if (CacheHelper.getData(key: SharedKey.roleSpecial)
+                                .toString()
+                                .contains("reassignPurchasing")) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ReAssignPurchasingTeamScreen(
+                                          outlet: outlet,
+                                        )),
+                              );
+                            } else {
+                              SharedWidget.toast(
+                                backgroundColor: ColorManager.yellow,
+                                message:
+                                    AppStrings.permissionStringWarning.tr(),
+                              );
+                            }
+                          }),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width /
+                                AppSize.s100,
+                          ),
+                          button(
+                            context,
+                            AppStrings.edit.tr(),
+                            () {
+                              if (CacheHelper.getData(key: SharedKey.roleEdit)
+                                  .toString()
+                                  .contains("purchasing")) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditPurchasingScreen(
+                                              model: outlet,
+                                            )));
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
+                            },
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width /
+                                AppSize.s100,
+                          ),
+                          button(
+                            context,
+                            AppStrings.declined.tr(),
+                            () {
+                              if (CacheHelper.getData(key: SharedKey.roleDelete)
+                                  .toString()
+                                  .contains("purchasing")) {
+                                PurchasingBloc.get(context).declinedPurchasing(
+                                    outletId: outlet.outletId);
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 )
               ],
             ),

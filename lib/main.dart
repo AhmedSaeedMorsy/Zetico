@@ -13,7 +13,10 @@ void main() async {
   await CacheHelper.init();
   runApp(
     EasyLocalization(
-      supportedLocales: const [ARABIC_LOCAL, ENGLISH_LOCAL],
+      supportedLocales: const [
+        ARABIC_LOCAL,
+        ENGLISH_LOCAL,
+      ],
       path: asstesLocalePath,
       child: Phoenix(
         child: MyApp(),

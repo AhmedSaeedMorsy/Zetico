@@ -13,6 +13,8 @@ class ColorManager {
   static const Color black = Colors.black;
   static const Color lightBlack = Color.fromARGB(255, 20, 20, 20);
   static const Color darkGrey = Color.fromARGB(255, 129, 129, 129);
+  static const Color yellow = Color.fromARGB(255, 242, 172, 10);
+
   static const Color lightGrey = Color.fromARGB(255, 250, 250, 250);
   static Color error = const Color(0xffe61f34);
 }

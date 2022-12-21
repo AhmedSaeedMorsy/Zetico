@@ -35,3 +35,13 @@ class GetAreaErrorState extends MainStates {
 
   GetAreaErrorState(this.error);
 }
+
+class RolesLoadingState extends MainStates {}
+
+class RolesSuccessState extends MainStates {}
+
+class RolesErrorState extends MainStates {
+  final String error;
+
+  RolesErrorState(this.error);
+}

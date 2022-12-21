@@ -8,6 +8,7 @@ import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/view_outlet_models.dart';
 import '../../agreed_outlet/view/agreed_dialog.dart';
 import '../../outlet_home/controller/view_outlet_bloc.dart';
@@ -21,36 +22,53 @@ class AgreedInPurchasingOutletScreen extends StatelessWidget {
       create: (context) => ViewOutletBloc()..getViewOutlet(),
       child: BlocBuilder<ViewOutletBloc, ViewOutletStates>(
           builder: (context, state) {
-        return Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height / AppSize.s180,
-                horizontal: MediaQuery.of(context).size.width / AppSize.s50,
-              ),
-              child: SharedWidget.defaultTextFormField(
-                hint: AppStrings.restaurant.tr(),
-                textInputType: TextInputType.text,
-                onFieldSubmitted: (String? value) {
-                  ViewOutletBloc.get(context).searchAgreed(value!);
-                },
-              ),
-            ),
-            Expanded(
-              child: ConditionalBuilderRec(
-                condition: state is ViewOutletSuccessState ||
-                    state is AgreedSearchSuccessState,
-                builder: (context) => itemBuilder(
-                  ViewOutletBloc.get(context).resturantAgreed,
+        if (CacheHelper.getData(key: SharedKey.roleSpecial)
+            .toString()
+            .contains("viewAgreed")) {
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height / AppSize.s180,
+                  horizontal: MediaQuery.of(context).size.width / AppSize.s50,
                 ),
-                fallback: (context) => const Center(
-                  child: CircularProgressIndicator(),
+                child: SharedWidget.defaultTextFormField(
+                  hint: AppStrings.restaurant.tr(),
+                  textInputType: TextInputType.text,
+                  onFieldSubmitted: (String? value) {
+                    ViewOutletBloc.get(context).searchAgreed(value!);
+                  },
                 ),
               ),
+              Expanded(
+                child: ConditionalBuilderRec(
+                  condition: state is ViewOutletSuccessState ||
+                      state is AgreedSearchSuccessState,
+                  builder: (context) => itemBuilder(
+                    ViewOutletBloc.get(context).resturantAgreed,
+                  ),
+                  fallback: (context) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
+              SharedWidget.footer(context),
+            ],
+          );
+        } else {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height / AppSize.s180,
+              horizontal: MediaQuery.of(context).size.width / AppSize.s50,
             ),
-            SharedWidget.footer(context),
-          ],
-        );
+            child: Center(
+              child: Text(
+                AppStrings.permissionStringWarning.tr(),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+          );
+        }
       }),
     );
   }

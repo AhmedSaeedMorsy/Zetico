@@ -1,7 +1,7 @@
 class LoginModel {
   late String memberId;
-  late String memberName;
-  late String memberPhone;
+   String? memberName;
+   String? memberPhone;
   late String memberTitle;
   late String memberMail;
   String? warehouseName;

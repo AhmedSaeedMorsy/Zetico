@@ -9,6 +9,7 @@ import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/purchsed_model.dart';
 import '../controller/purchsed_bloc.dart';
 import '../controller/purchsed_states.dart';
@@ -18,35 +19,58 @@ class PurchasedOutletView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PurchsedBloc, PurchsedStates>(builder: (context, state) {
-      return Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.height / AppSize.s180,
-              horizontal: MediaQuery.of(context).size.width / AppSize.s50,
+      if (CacheHelper.getData(key: SharedKey.roleCreate)
+              .toString()
+              .contains("purchased") ||
+          CacheHelper.getData(key: SharedKey.roleDelete)
+              .toString()
+              .contains("purchased") ||
+          CacheHelper.getData(key: SharedKey.roleSpecial)
+              .toString()
+              .contains("notAgreedpurchased")) {
+        return Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height / AppSize.s180,
+                horizontal: MediaQuery.of(context).size.width / AppSize.s50,
+              ),
+              child: SharedWidget.defaultTextFormField(
+                hint: AppStrings.restaurant.tr(),
+                onFieldSubmitted: (value) {
+                  PurchsedBloc.get(context).searchPurchesed(value);
+                },
+                textInputType: TextInputType.text,
+              ),
             ),
-            child: SharedWidget.defaultTextFormField(
-              hint: AppStrings.restaurant.tr(),
-              onFieldSubmitted: (value) {
-                PurchsedBloc.get(context).searchPurchesed(value);
-              },
-              textInputType: TextInputType.text,
+            Expanded(
+                child: ConditionalBuilderRec(
+              condition: state is PurchsedSuccessState ||
+                  state is PurchsedSearchSuccessState,
+              builder: (context) => itemBuilder(
+                PurchsedBloc.get(context).purchsedModel.resturant,
+              ),
+              fallback: (context) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+            )),
+            SharedWidget.footer(context),
+          ],
+        );
+      } else {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height / AppSize.s180,
+            horizontal: MediaQuery.of(context).size.width / AppSize.s50,
+          ),
+          child: Center(
+            child: Text(
+              AppStrings.permissionStringWarning.tr(),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
-          Expanded(
-              child: ConditionalBuilderRec(
-            condition: state is PurchsedSuccessState ||
-                state is PurchsedSearchSuccessState,
-            builder: (context) => itemBuilder(
-              PurchsedBloc.get(context).purchsedModel.resturant,
-            ),
-            fallback: (context) => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          )),
-          SharedWidget.footer(context),
-        ],
-      );
+        );
+      }
     });
   }
 

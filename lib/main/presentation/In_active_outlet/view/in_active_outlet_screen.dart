@@ -8,51 +8,69 @@ import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/view_outlet_models.dart';
 import '../../outlet_home/controller/view_outlet_bloc.dart';
 import '../../outlet_home/controller/view_outlet_states.dart';
 import 'in_active_dialog.dart';
 
 class InActiveOutletScreen extends StatelessWidget {
- const InActiveOutletScreen({super.key});
+  const InActiveOutletScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ViewOutletBloc, ViewOutletStates>(
         builder: (context, state) {
-      return Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.height / AppSize.s180,
-              horizontal: MediaQuery.of(context).size.width / AppSize.s50,
-            ),
-            child: SharedWidget.defaultTextFormField(
-              hint: AppStrings.restaurant.tr(),
-              textInputType: TextInputType.text,
-              onFieldSubmitted: (String? value) {
-                ViewOutletBloc.get(context).searchInActive(value!);
-              },
-            ),
-          ),
-          Expanded(
-            child: ConditionalBuilderRec(
-              condition: state is ViewOutletSuccessState ||
-                  state is ViewOutletSearchSuccessState ||
-                  state is AgreedSearchSuccessState ||
-                  state is InActiveSearchSuccessState ||
-                  state is ActiveSearchSuccessState ||
-                  state is NotAgreedSearchSuccessState,
-              builder: (context) => itemBuilder(
-                ViewOutletBloc.get(context).resturantInActive,
+      if (CacheHelper.getData(key: SharedKey.roleSpecial)
+          .toString()
+          .contains("viewInactive")) {
+        return Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height / AppSize.s180,
+                horizontal: MediaQuery.of(context).size.width / AppSize.s50,
               ),
-              fallback: (context) => const Center(
-                child: CircularProgressIndicator(),
+              child: SharedWidget.defaultTextFormField(
+                hint: AppStrings.restaurant.tr(),
+                textInputType: TextInputType.text,
+                onFieldSubmitted: (String? value) {
+                  ViewOutletBloc.get(context).searchInActive(value!);
+                },
               ),
             ),
+            Expanded(
+              child: ConditionalBuilderRec(
+                condition: state is ViewOutletSuccessState ||
+                    state is ViewOutletSearchSuccessState ||
+                    state is AgreedSearchSuccessState ||
+                    state is InActiveSearchSuccessState ||
+                    state is ActiveSearchSuccessState ||
+                    state is NotAgreedSearchSuccessState,
+                builder: (context) => itemBuilder(
+                  ViewOutletBloc.get(context).resturantInActive,
+                ),
+                fallback: (context) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ),
+            SharedWidget.footer(context),
+          ],
+        );
+      } else {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height / AppSize.s180,
+            horizontal: MediaQuery.of(context).size.width / AppSize.s50,
           ),
-          SharedWidget.footer(context),
-        ],
-      );
+          child: Center(
+            child: Text(
+              AppStrings.permissionStringWarning.tr(),
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+        );
+      }
     });
   }
 }
@@ -62,13 +80,12 @@ Widget itemBuilder(List<ResturantModel> list) => ListView.builder(
       itemCount: list.length,
       itemBuilder: (context, index) => InkWell(
         onTap: () {
-          showInActiveDialog(context ,list[index]);
+          showInActiveDialog(context, list[index]);
         },
         child: Padding(
           padding: EdgeInsets.symmetric(
             vertical: MediaQuery.of(context).size.height / AppSize.s50,
-                        horizontal: MediaQuery.of(context).size.height / AppSize.s50,
-
+            horizontal: MediaQuery.of(context).size.height / AppSize.s50,
           ),
           child: Row(
             children: [
@@ -116,7 +133,7 @@ Widget itemBuilder(List<ResturantModel> list) => ListView.builder(
               Expanded(
                 flex: 1,
                 child: Text(
-                  list[index].approveName??"",
+                  list[index].approveName ?? "",
                   style: Theme.of(context).textTheme.displaySmall!.copyWith(
                         fontSize: FontSizeManager.s14.sp,
                         color: ColorManager.grey,

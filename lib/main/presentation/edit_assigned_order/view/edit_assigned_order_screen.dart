@@ -10,6 +10,7 @@ import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/assigned_order_model.dart';
 import '../controller/edit_assigned_order_bloc.dart';
 import '../controller/edit_assigned_order_states.dart';
@@ -197,7 +198,9 @@ class EditAssignedOrderScreen extends StatelessWidget {
                                   .currentValue
                                   .toString(),
                               orderDate: date,
-                              userId: "1",
+                              userId: CacheHelper.getData(
+                              key: SharedKey.memberId,
+                            ),
                             );
                           },
                           AppStrings.confirm.tr(),

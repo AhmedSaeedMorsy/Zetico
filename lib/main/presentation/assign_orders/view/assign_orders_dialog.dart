@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zetico/main/presentation/assign_orders/controller/assigned_orders_bloc.dart';
 import 'package:zetico/main/presentation/assign_orders/controller/assigned_orders_states.dart';
+import '../../../../app/common/widget.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/assigned_order_model.dart';
 import '../../edit_assigned_order/view/edit_assigned_order_screen.dart';
 import '../../re_assignn_driver_team/view/re_assign_driver_team_screen.dart';
@@ -215,31 +217,63 @@ Future showAssignOrdersDialog(
                       return Row(
                         children: [
                           button(context, AppStrings.reAssign.tr(), () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ReAssignDriverTeamScreen(
-                                            order: order)));
+                            if (CacheHelper.getData(
+                              key: SharedKey.roleSpecial,
+                            ).toString().contains("reassignOrder")) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ReAssignDriverTeamScreen(
+                                              order: order)));
+                            } else {
+                              SharedWidget.toast(
+                                backgroundColor: ColorManager.yellow,
+                                message:
+                                    AppStrings.permissionStringWarning.tr(),
+                              );
+                            }
                           }),
                           SizedBox(
                             width: MediaQuery.of(context).size.width /
                                 AppSize.s100,
                           ),
                           button(context, AppStrings.delete.tr(), () {
-                            AssignedOrdersBloc.get(context).deleteAssignedOrder(
-                                orderId: order.assignedOrderId!);
+                            if (CacheHelper.getData(
+                              key: SharedKey.roleDelete,
+                            ).toString().contains("order")) {
+                              AssignedOrdersBloc.get(context)
+                                  .deleteAssignedOrder(
+                                      orderId: order.assignedOrderId!);
+                            } else {
+                              SharedWidget.toast(
+                                backgroundColor: ColorManager.yellow,
+                                message:
+                                    AppStrings.permissionStringWarning.tr(),
+                              );
+                            }
                           }),
                           SizedBox(
                             width: MediaQuery.of(context).size.width /
                                 AppSize.s100,
                           ),
                           button(context, AppStrings.edit.tr(), () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        EditAssignedOrderScreen(order: order)));
+                            if (CacheHelper.getData(
+                              key: SharedKey.roleEdit,
+                            ).toString().contains("order")) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditAssignedOrderScreen(
+                                              order: order)));
+                            } else {
+                              SharedWidget.toast(
+                                backgroundColor: ColorManager.yellow,
+                                message:
+                                    AppStrings.permissionStringWarning.tr(),
+                              );
+                            }
                           }),
                         ],
                       );

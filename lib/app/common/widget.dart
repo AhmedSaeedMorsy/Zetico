@@ -3,6 +3,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:zetico/app/resources/font_manager.dart';
@@ -11,9 +12,12 @@ import 'package:zetico/main/main_controller/main_states.dart';
 
 import '../resources/assets_manager.dart';
 import '../resources/color_manager.dart';
+import '../resources/language_manager.dart';
+import '../resources/routes_manager.dart';
 import '../resources/strings_manager.dart';
 import '../resources/styles_manager.dart';
 import '../resources/values_manager.dart';
+import '../services/shared_prefrences/cache_helper.dart';
 
 class SharedWidget {
   static Widget defaultTextFormField({
@@ -87,15 +91,150 @@ class SharedWidget {
   //   );
   // }
 
-  static toast({required String message}) {
+  static toast({required String message,required Color backgroundColor}) {
     return Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
-      backgroundColor: ColorManager.error,
+      backgroundColor: backgroundColor,
       textColor: ColorManager.white,
       fontSize: FontSizeManager.s16.sp,
     );
+  }
+
+static Widget drawer({required BuildContext context,required String name,required String phone,}) => Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration:
+                  const BoxDecoration(color: ColorManager.thirdgradientColor),
+              padding: EdgeInsets.all(
+                MediaQuery.of(context).size.height / AppSize.s50,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    name,
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          fontSize: FontSizeManager.s18.sp,
+                        ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / AppSize.s80,
+                  ),
+                  Text(
+                    phone,overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          fontSize: FontSizeManager.s18.sp,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / AppSize.s22,
+            ),
+            ListTile(
+              leading: Image.asset(
+                AssetsManager.settings,
+              ),
+              title: Text(
+                AppStrings.language.tr(),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              onTap: () {
+                changeLanguage(context);
+              },
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / AppSize.s22,
+            ),
+            ListTile(
+              leading: Image.asset(
+                AssetsManager.settings,
+              ),
+              title: Text(
+                AppStrings.editProfile.tr(),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              onTap: () {},
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / AppSize.s22,
+            ),
+            ListTile(
+              leading: Image.asset(
+                AssetsManager.logOut,
+              ),
+              title: Text(
+                AppStrings.logOut.tr(),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              onTap: () {
+               CacheHelper.removeData(
+                  key: SharedKey.cityEn,
+                );
+                CacheHelper.removeData(
+                  key: SharedKey.governorateEn,
+                );
+                CacheHelper.removeData(
+                  key: SharedKey.mainTeamName,
+                );
+                CacheHelper.removeData(
+                  key: SharedKey.memberId,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.memberMail,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.memberName,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.memberPhone,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.memberTitle,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.role,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.roleCreate,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.roleDelete,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.roleEdit,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.roleName,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.roleSpecial,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.token,
+                );
+                  CacheHelper.removeData(
+                  key: SharedKey.warehouseName,
+                );
+                Navigator.pushReplacementNamed(
+                  context,
+                  Routes.loginRoute,
+                );
+              },
+            ),
+          ],
+        ),
+      );
+
+static  void changeLanguage(context) {
+    changeAppLanguage();
+    Phoenix.rebirth(context);
   }
 
   static Widget defaultButton(

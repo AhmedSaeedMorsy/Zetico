@@ -10,6 +10,7 @@ import 'package:zetico/app/resources/values_manager.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/assigned_order_model.dart';
 import '../../../models/driver_team_model.dart';
 import '../controller/re_assign_driver_team_bloc.dart';
@@ -71,7 +72,9 @@ class ReAssignDriverTeamScreen extends StatelessWidget {
                                 .driverTeamModel
                                 .team[index]
                                 .memberId,
-                            userId: "1",
+                            userId: CacheHelper.getData(
+                              key: SharedKey.memberId,
+                            ),
                           );
                         },
                       );
@@ -105,18 +108,27 @@ class ReAssignDriverTeamScreen extends StatelessWidget {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                driver.memberName,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              Text(
-                driver.memberPhone,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  driver.memberName,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Text(
+                  driver.memberPhone,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              ],
+            ),
+          ),
+          const Text(
+            "30 kg",
+            style: TextStyle(color: ColorManager.black),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / AppSize.s20,
           ),
           Container(
             height: AppSize.s40.h,

@@ -4,6 +4,7 @@ import '../../app/services/dio_helper/dio_helper.dart';
 import '../../app/services/location_helper/location_helper.dart';
 import '../models/area_model.dart';
 import '../models/city_model.dart';
+import '../models/roles_model.dart';
 import 'main_states.dart';
 
 class MainBloc extends Cubit<MainStates> {
@@ -60,6 +61,21 @@ class MainBloc extends Cubit<MainStates> {
       emit(GetAreaSuccessState());
     }).catchError((error) {
       emit(GetAreaErrorState(error.toString()));
+    });
+  }
+
+  RolesModel rolesModel = RolesModel();
+  void getRoles({
+    required String userId,
+  }) {
+    emit(RolesLoadingState());
+    DioHelper.postData(path: ApiConstant.getRoles, data: {
+      "userId": userId,
+    }).then((value) {
+      rolesModel = RolesModel.fromjson(value.data);
+      emit(RolesSuccessState());
+    }).catchError((error) {
+      emit(RolesErrorState(error.toString()));
     });
   }
 }

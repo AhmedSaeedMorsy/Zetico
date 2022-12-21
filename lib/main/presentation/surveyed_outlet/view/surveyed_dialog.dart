@@ -2,12 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:zetico/app/common/widget.dart';
 import 'package:zetico/app/resources/routes_manager.dart';
 import 'package:zetico/main/presentation/edit_surveyed/view/edit_surveyed_screen.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/survyed_outlet_model.dart';
 import '../controller/survyed_bloc.dart';
 import '../controller/survyed_states.dart';
@@ -173,9 +175,17 @@ Future showSurveyedDialog(
                             context,
                             AppStrings.approve.tr(),
                             () {
-                              SurveyedBloc.get(context).approveSurvyed(
-                                outletId: outlet.outletId,
-                              );
+                              if (CacheHelper.getData(key: SharedKey.roleCreate)
+                                  .toString()
+                                  .contains("survey")) {
+                                SurveyedBloc.get(context).approveSurvyed(
+                                  outletId: outlet.outletId,
+                                );
+                              }
+                              SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr());
                             },
                           ),
                           SizedBox(
@@ -186,14 +196,23 @@ Future showSurveyedDialog(
                             context,
                             AppStrings.edit.tr(),
                             () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EditSurveyed(
-                                    outlet: outlet,
+                              if (CacheHelper.getData(key: SharedKey.roleEdit)
+                                  .toString()
+                                  .contains("survey")) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EditSurveyed(
+                                      outlet: outlet,
+                                    ),
                                   ),
-                                ),
-                              );
+                                );
+                              } else {
+                                SharedWidget.toast(
+                                    backgroundColor: ColorManager.yellow,
+                                    message: AppStrings.permissionStringWarning
+                                        .tr());
+                              }
                             },
                           ),
                           SizedBox(
@@ -204,9 +223,18 @@ Future showSurveyedDialog(
                             context,
                             AppStrings.declined.tr(),
                             () {
-                              SurveyedBloc.get(context).declinedSurveyed(
-                                outletId: outlet.outletId,
-                              );
+                              if (CacheHelper.getData(key: SharedKey.roleDelete)
+                                  .toString()
+                                  .contains("survey")) {
+                                SurveyedBloc.get(context).declinedSurveyed(
+                                  outletId: outlet.outletId,
+                                );
+                              } else {
+                                SharedWidget.toast(
+                                    backgroundColor: ColorManager.yellow,
+                                    message: AppStrings.permissionStringWarning
+                                        .tr());
+                              }
                             },
                           ),
                         ],

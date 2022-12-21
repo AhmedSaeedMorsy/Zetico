@@ -172,5 +172,9 @@
       "issueDate": "تاريخ المشكلة : ",
       "issueComment": "تعليق علي المشكلة : ",
       "delete": "مسح",
-      "messageError": "البريد الالكتروني او الرقم السري غير صحيح"
+      "messageError": "البريد الالكتروني او الرقم السري غير صحيح",
+      "issuedString": "لا يمكنني جمع الطلب",
+      "required": "مطلوب",
+      "permissionStringWarning": "ليس لديك إذن لهذا الإجراء",
+      "checkInString": "يجب أن تقوم بتسجيل الدخول"
 }

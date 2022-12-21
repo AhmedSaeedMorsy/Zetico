@@ -11,6 +11,7 @@ import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/survyed_outlet_model.dart';
 
 class SurveyedOutletView extends StatelessWidget {
@@ -19,35 +20,58 @@ class SurveyedOutletView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SurveyedBloc, SurveyedStates>(
       builder: (context, state) {
-        return Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height / AppSize.s180,
-                horizontal: MediaQuery.of(context).size.width / AppSize.s50,
-              ),
-              child: SharedWidget.defaultTextFormField(
-                  hint: AppStrings.restaurant.tr(),
-                  textInputType: TextInputType.text,
-                  onFieldSubmitted: (String value) {
-                    SurveyedBloc.get(context).searchSurvyed(value);
-                  }),
-            ),
-            Expanded(
-              child: ConditionalBuilderRec(
-                condition: state is SurvyedSuccessState ||
-                    state is SurvyedSearchSuccessState,
-                builder: (context) => itemBuilder(
-                  SurveyedBloc.get(context).survyedModel.resturant,
+        if (CacheHelper.getData(key: SharedKey.roleCreate)
+                .toString()
+                .contains("survey") ||
+            CacheHelper.getData(key: SharedKey.roleEdit)
+                .toString()
+                .contains("survey") ||
+            CacheHelper.getData(key: SharedKey.roleDelete)
+                .toString()
+                .contains("survey")) {
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height / AppSize.s180,
+                  horizontal: MediaQuery.of(context).size.width / AppSize.s50,
                 ),
-                fallback: (context) => const Center(
-                  child: CircularProgressIndicator(),
+                child: SharedWidget.defaultTextFormField(
+                    hint: AppStrings.restaurant.tr(),
+                    textInputType: TextInputType.text,
+                    onFieldSubmitted: (String value) {
+                      SurveyedBloc.get(context).searchSurvyed(value);
+                    }),
+              ),
+              Expanded(
+                child: ConditionalBuilderRec(
+                  condition: state is SurvyedSuccessState ||
+                      state is SurvyedSearchSuccessState,
+                  builder: (context) => itemBuilder(
+                    SurveyedBloc.get(context).survyedModel.resturant,
+                  ),
+                  fallback: (context) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ),
               ),
+              SharedWidget.footer(context),
+            ],
+          );
+        } else {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height / AppSize.s180,
+              horizontal: MediaQuery.of(context).size.width / AppSize.s50,
             ),
-            SharedWidget.footer(context),
-          ],
-        );
+            child: Center(
+              child: Text(
+                AppStrings.permissionStringWarning.tr(),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+          );
+        }
       },
     );
   }

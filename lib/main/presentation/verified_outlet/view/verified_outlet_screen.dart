@@ -11,6 +11,7 @@ import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../../models/verfied_model.dart';
 
 class VerifiedOutlet extends StatelessWidget {
@@ -20,37 +21,60 @@ class VerifiedOutlet extends StatelessWidget {
     return BlocProvider(
       create: (context) => VerfiedBloc()..getVerfied(),
       child: BlocBuilder<VerfiedBloc, VerfiedStates>(builder: (context, state) {
-        return Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height / AppSize.s180,
-                horizontal: MediaQuery.of(context).size.width / AppSize.s50,
-              ),
-              child: SharedWidget.defaultTextFormField(
-                hint: AppStrings.restaurant.tr(),
-                textInputType: TextInputType.text,
-                onFieldSubmitted: (String value) {
-                  VerfiedBloc.get(context).searchVerfied(value);
-                },
-              ),
-            ),
-            Expanded(
-              child: ConditionalBuilderRec(
-                condition: state is VerfiedSearchSuccessState ||
-                    state is VerfiedSuccessState,
-                builder: (context) {
-                  return itemBuilder(
-                      VerfiedBloc.get(context).verfiedModel.resturant);
-                },
-                fallback: (context) => const Center(
-                  child: CircularProgressIndicator(),
+        if (CacheHelper.getData(key: SharedKey.roleCreate)
+                .toString()
+                .contains("verified") ||
+            CacheHelper.getData(key: SharedKey.roleEdit)
+                .toString()
+                .contains("verified") ||
+            CacheHelper.getData(key: SharedKey.roleDelete)
+                .toString()
+                .contains("verified")) {
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height / AppSize.s180,
+                  horizontal: MediaQuery.of(context).size.width / AppSize.s50,
+                ),
+                child: SharedWidget.defaultTextFormField(
+                  hint: AppStrings.restaurant.tr(),
+                  textInputType: TextInputType.text,
+                  onFieldSubmitted: (String value) {
+                    VerfiedBloc.get(context).searchVerfied(value);
+                  },
                 ),
               ),
+              Expanded(
+                child: ConditionalBuilderRec(
+                  condition: state is VerfiedSearchSuccessState ||
+                      state is VerfiedSuccessState,
+                  builder: (context) {
+                    return itemBuilder(
+                        VerfiedBloc.get(context).verfiedModel.resturant);
+                  },
+                  fallback: (context) => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
+              SharedWidget.footer(context),
+            ],
+          );
+        } else {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height / AppSize.s180,
+              horizontal: MediaQuery.of(context).size.width / AppSize.s50,
             ),
-            SharedWidget.footer(context),
-          ],
-        );
+            child: Center(
+              child: Text(
+                AppStrings.permissionStringWarning.tr(),
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+          );
+        }
       }),
     );
   }

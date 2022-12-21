@@ -208,7 +208,7 @@ Future showAgreedDialog(BuildContext context, ResturantModel outlet) =>
                 bodyText(
                   context,
                   AppStrings.purchasedBy.tr(),
-                  outlet.approveName??"",
+                  outlet.approveName ?? "",
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -279,7 +279,18 @@ Future showAgreedDialog(BuildContext context, ResturantModel outlet) =>
                 ),
                 Row(
                   children: [
-                    button(context, AppStrings.order.tr(), () {}),
+                    button(context, AppStrings.order.tr(), () {
+                      // if (CacheHelper.getData(key: SharedKey.roleSpecial)
+                      //     .toString()
+                      //     .contains("")) {
+
+                      // } else {
+                      //   SharedWidget.toast(
+                      //     backgroundColor: ColorManager.yellow,
+                      //     message: AppStrings.permissionStringWarning.tr(),
+                      //   );
+                      // }
+                    }),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / AppSize.s50,
                     ),
@@ -287,10 +298,19 @@ Future showAgreedDialog(BuildContext context, ResturantModel outlet) =>
                       context,
                       AppStrings.edit.tr(),
                       () {
+                        // if (CacheHelper.getData(key: SharedKey.roleSpecial)
+                        //     .toString()
+                        //     .contains("")) {
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(
                         //         builder: (context) => EditOutletScreen()));
+                        // } else {
+                        //   SharedWidget.toast(
+                        //     backgroundColor: ColorManager.yellow,
+                        //     message: AppStrings.permissionStringWarning.tr(),
+                        //   );
+                        // }
                       },
                     ),
                     SizedBox(
@@ -299,7 +319,18 @@ Future showAgreedDialog(BuildContext context, ResturantModel outlet) =>
                     button(
                       context,
                       AppStrings.declined.tr(),
-                      () {},
+                      () {
+                        // if (CacheHelper.getData(key: SharedKey.roleSpecial)
+                        //     .toString()
+                        //     .contains("")) {
+
+                        // } else {
+                        //   SharedWidget.toast(
+                        //     backgroundColor: ColorManager.yellow,
+                        //     message: AppStrings.permissionStringWarning.tr(),
+                        //   );
+                        // }
+                      },
                     ),
                   ],
                 ),

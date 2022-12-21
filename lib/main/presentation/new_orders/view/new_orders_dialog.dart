@@ -6,11 +6,13 @@ import 'package:zetico/main/models/new_orders_model.dart';
 import 'package:zetico/main/presentation/driver_team/view/driver_team_screen.dart';
 import 'package:zetico/main/presentation/new_orders/controller/new_orders_bloc.dart';
 import 'package:zetico/main/presentation/new_orders/controller/new_orders_states.dart';
+import '../../../../app/common/widget.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../edit_new_order/view/edit_order_screen.dart';
 
 Future showNewOrdersDialog(
@@ -199,32 +201,62 @@ Future showNewOrdersDialog(
                         return Row(
                           children: [
                             button(context, AppStrings.assign.tr(), () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      DriverTeamScreen(order: order),
-                                ),
-                              );
+                              if (CacheHelper.getData(
+                                key: SharedKey.roleSpecial,
+                              ).toString().contains("assignOrder")) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        DriverTeamScreen(order: order),
+                                  ),
+                                );
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
                             }),
                             SizedBox(
                               width: MediaQuery.of(context).size.width /
                                   AppSize.s100,
                             ),
                             button(context, AppStrings.edit.tr(), () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          EditNewOrderScreen(order: order)));
+                              if (CacheHelper.getData(
+                                key: SharedKey.roleEdit,
+                              ).toString().contains("order")) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditNewOrderScreen(order: order)));
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
                             }),
                             SizedBox(
                               width: MediaQuery.of(context).size.width /
                                   AppSize.s100,
                             ),
                             button(context, AppStrings.delete.tr(), () {
-                              NewOrdersBloc.get(context)
-                                  .deleteNewOrder(orderId: order.orderId!);
+                              if (CacheHelper.getData(
+                                key: SharedKey.roleDelete,
+                              ).toString().contains("order")) {
+                                NewOrdersBloc.get(context)
+                                    .deleteNewOrder(orderId: order.orderId!);
+                              } else {
+                                SharedWidget.toast(
+                                  backgroundColor: ColorManager.yellow,
+                                  message:
+                                      AppStrings.permissionStringWarning.tr(),
+                                );
+                              }
                             }),
                           ],
                         );

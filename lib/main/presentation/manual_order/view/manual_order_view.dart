@@ -7,22 +7,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:zetico/app/common/widget.dart';
+import 'package:zetico/main/models/outlets_model.dart';
 import 'package:zetico/main/presentation/manual_order/controller/manual_order_bloc.dart';
 import 'package:zetico/main/presentation/manual_order/controller/manual_order_states.dart';
-import 'package:zetico/main/presentation/outlet_home/controller/view_outlet_bloc.dart';
-import 'package:zetico/main/presentation/outlet_home/controller/view_outlet_states.dart';
 import '../../../../app/resources/color_manager.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../../../../app/resources/routes_manager.dart';
 import '../../../../app/resources/strings_manager.dart';
 import '../../../../app/resources/values_manager.dart';
-import '../../../models/view_outlet_models.dart';
+import '../../../../app/services/shared_prefrences/cache_helper.dart';
 import '../../driver_in_manual_order/view/driver_team_in_manual_order_screen.dart';
 
 class ManualOrderView extends StatelessWidget {
   ManualOrderView({super.key});
-  List<ResturantModel>? resturantList;
   double price = 0.0;
+  List<Model>? resturantList;
   final searchController = TextEditingController();
   String date = DateFormat.yMd().format(DateTime.now()).toString();
   String? orderQty;
@@ -58,19 +57,16 @@ class ManualOrderView extends StatelessWidget {
               builder: (context, state) {
                 return Column(
                   children: [
-                    BlocBuilder<ViewOutletBloc, ViewOutletStates>(
-                      builder: (context, state) {
-                        return dropDownSearchList(
-                          context: context,
-                          onChange: (value) {
-                            searchController.text = value!;
-                            ManualOrderBloc.get(context)
-                                .getPrice(outletName: searchController.text);
-                          },
-                          resturantList:
-                              ViewOutletBloc.get(context).resturantAgreed,
+                    dropDownSearchList(
+                      context: context,
+                      onChange: (value) {
+                        searchController.text = value!;
+                        ManualOrderBloc.get(context).getPrice(
+                          outletName: searchController.text,
                         );
                       },
+                      resturantList:
+                          ManualOrderBloc.get(context).outletModel.outlets,
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / AppSize.s50,
@@ -211,13 +207,13 @@ class ManualOrderView extends StatelessWidget {
                           child: SharedWidget.defaultButton(
                             context,
                             () {
-                              orderQty =ManualOrderBloc.get(context)
-                                        .currentValue
-                                        .toString();
-                                        outletId =ManualOrderBloc.get(context)
-                                        .outletPriceModel
-                                        .outlet[0]
-                                        .outletId!;
+                              orderQty = ManualOrderBloc.get(context)
+                                  .currentValue
+                                  .toString();
+                              outletId = ManualOrderBloc.get(context)
+                                  .outletPriceModel
+                                  .outlet[0]
+                                  .outletId!;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -242,15 +238,18 @@ class ManualOrderView extends StatelessWidget {
                             context,
                             () {
                               ManualOrderBloc.get(context).addNewOrder(
-                                  outletId: ManualOrderBloc.get(context)
-                                      .outletPriceModel
-                                      .outlet[0]
-                                      .outletId!,
-                                  orderQty: ManualOrderBloc.get(context)
-                                      .currentValue
-                                      .toString(),
-                                  orderDate: date,
-                                  userId: "1");
+                                outletId: ManualOrderBloc.get(context)
+                                    .outletPriceModel
+                                    .outlet[0]
+                                    .outletId!,
+                                orderQty: ManualOrderBloc.get(context)
+                                    .currentValue
+                                    .toString(),
+                                orderDate: date,
+                                userId: CacheHelper.getData(
+                                  key: SharedKey.memberId,
+                                ),
+                              );
                             },
                             AppStrings.confirm.tr(),
                           ),
@@ -331,7 +330,7 @@ class ManualOrderView extends StatelessWidget {
   Widget dropDownSearchList({
     required BuildContext context,
     required void Function(String?) onChange,
-    required List<ResturantModel> resturantList,
+    required List<Model> resturantList,
   }) =>
       Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -360,9 +359,9 @@ class ManualOrderView extends StatelessWidget {
               items: resturantList
                   .map(
                     (item) => DropdownMenuItem<String>(
-                      value: item.outletNameEn,
+                      value: item.name,
                       child: Text(
-                        item.outletNameEn!,
+                        item.name!,
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ),

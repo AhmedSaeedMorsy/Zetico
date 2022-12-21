@@ -279,7 +279,21 @@ Future showNotAgreedDialog(BuildContext context, ResturantModel outlet) =>
                 ),
                 Row(
                   children: [
-                    button(context, AppStrings.order.tr(), () {}),
+                    button(context, AppStrings.order.tr(), () {
+                      // if (CacheHelper.getData(key: SharedKey.roleSpecial)
+                      //     .toString()
+                      //     .contains("")) {
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => EditOutletScreen()));
+                      // } else {
+                      //   SharedWidget.toast(
+                      //     backgroundColor: ColorManager.yellow,
+                      //     message: AppStrings.permissionStringWarning.tr(),
+                      //   );
+                      // }
+                    }),
                     SizedBox(
                       width: MediaQuery.of(context).size.width / AppSize.s50,
                     ),
@@ -287,10 +301,19 @@ Future showNotAgreedDialog(BuildContext context, ResturantModel outlet) =>
                       context,
                       AppStrings.edit.tr(),
                       () {
+                        // if (CacheHelper.getData(key: SharedKey.roleSpecial)
+                        //     .toString()
+                        //     .contains("")) {
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(
                         //         builder: (context) => EditOutletScreen()));
+                        // } else {
+                        //   SharedWidget.toast(
+                        //     backgroundColor: ColorManager.yellow,
+                        //     message: AppStrings.permissionStringWarning.tr(),
+                        //   );
+                        // }
                       },
                     ),
                     SizedBox(
@@ -299,7 +322,21 @@ Future showNotAgreedDialog(BuildContext context, ResturantModel outlet) =>
                     button(
                       context,
                       AppStrings.declined.tr(),
-                      () {},
+                      () {
+                        // if (CacheHelper.getData(key: SharedKey.roleSpecial)
+                        //     .toString()
+                        //     .contains("")) {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => EditOutletScreen()));
+                        // } else {
+                        //   SharedWidget.toast(
+                        //     backgroundColor: ColorManager.yellow,
+                        //     message: AppStrings.permissionStringWarning.tr(),
+                        //   );
+                        // }
+                      },
                     ),
                   ],
                 ),

@@ -36,3 +36,12 @@ class AddOrderErrorState extends ManualOrderStates {
 
   AddOrderErrorState(this.error);
 }
+class OutletsLoadingState extends ManualOrderStates {}
+
+class OutletsSuccessState extends ManualOrderStates {}
+
+class OutletsErrorState extends ManualOrderStates {
+  final String error;
+
+  OutletsErrorState(this.error);
+}
