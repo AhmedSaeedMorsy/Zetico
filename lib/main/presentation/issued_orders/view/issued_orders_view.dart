@@ -112,7 +112,7 @@ class IssuedOrdersView extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    "${AppStrings.date.tr()} ${order[index].issueDate}}",
+                    "${AppStrings.date.tr()} ${order[index].issueDate}",
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
                           fontSize: FontSizeManager.s14.sp,
                           color: ColorManager.grey,

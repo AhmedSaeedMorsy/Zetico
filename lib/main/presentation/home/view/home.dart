@@ -30,11 +30,6 @@ class HomeScreen extends StatelessWidget {
         ),
       child: BlocConsumer<MainBloc, MainStates>(
         listener: (context, state) {
-          CacheHelper.removeData(key: SharedKey.roleCreate);
-          CacheHelper.removeData(key: SharedKey.roleDelete);
-          CacheHelper.removeData(key: SharedKey.roleEdit);
-          CacheHelper.removeData(key: SharedKey.roleSpecial);
-
           if (state is RolesSuccessState) {
             CacheHelper.setData(
               key: SharedKey.roleCreate,

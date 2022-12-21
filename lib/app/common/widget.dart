@@ -222,6 +222,9 @@ static Widget drawer({required BuildContext context,required String name,require
                   CacheHelper.removeData(
                   key: SharedKey.warehouseName,
                 );
+                    CacheHelper.removeData(
+                  key: SharedKey.checkIn,
+                );
                 Navigator.pushReplacementNamed(
                   context,
                   Routes.loginRoute,

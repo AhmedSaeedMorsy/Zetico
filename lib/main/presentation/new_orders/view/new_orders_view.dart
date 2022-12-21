@@ -115,7 +115,7 @@ class NewOrdersView extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    "${AppStrings.date.tr()} ${order[index].orderDate}",
+                    "${AppStrings.date.tr()} ${order[index].newOrderCreation}",
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
                           fontSize: FontSizeManager.s14.sp,
                           color: ColorManager.grey,

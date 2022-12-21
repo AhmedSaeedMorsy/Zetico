@@ -217,8 +217,8 @@ class ApprovePurchasingView extends StatelessWidget {
                                   AppStrings.getLocation.tr(),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .displayMedium
-                                      !.copyWith(
+                                      .displayMedium!
+                                      .copyWith(
                                         fontSize: FontSizeManager.s14.sp,
                                       ),
                                 ),
@@ -277,11 +277,11 @@ class ApprovePurchasingView extends StatelessWidget {
               itemDropDown(
                   context: context,
                   list: [
-    AppStrings.worker.tr(),
-    AppStrings.chef.tr(),
-    AppStrings.operationManager.tr(),
-    AppStrings.generalManager.tr(),
-  ],
+                    AppStrings.worker.tr(),
+                    AppStrings.chef.tr(),
+                    AppStrings.operationManager.tr(),
+                    AppStrings.generalManager.tr(),
+                  ],
                   onChange: (value) {
                     custRole = value;
                   },
@@ -340,11 +340,11 @@ class ApprovePurchasingView extends StatelessWidget {
               itemDropDown(
                 context: context,
                 list: [
-    AppStrings.worker.tr(),
-    AppStrings.chef.tr(),
-    AppStrings.operationManager.tr(),
-    AppStrings.generalManager.tr(),
-  ],
+                  AppStrings.worker.tr(),
+                  AppStrings.chef.tr(),
+                  AppStrings.operationManager.tr(),
+                  AppStrings.generalManager.tr(),
+                ],
                 hint: AppStrings.title.tr(),
                 validateText: AppStrings.titleValidateText.tr(),
                 title: AppStrings.title.tr(),
@@ -428,8 +428,9 @@ class ApprovePurchasingView extends StatelessWidget {
                       controller: controllerAgreementStartDate,
                       textInputType: TextInputType.none,
                       label: AppStrings.agreementStartDate.tr(),
-                      suffixIcon: const Icon(
-                        Icons.calendar_month,
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.calendar_month),
+                        onPressed: () {},
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -458,8 +459,11 @@ class ApprovePurchasingView extends StatelessWidget {
                         controller: controllerAgreementEndDate,
                         textInputType: TextInputType.none,
                         label: AppStrings.agreementEndDate.tr(),
-                        suffixIcon: const Icon(
-                          Icons.calendar_month,
+                        suffixIcon: IconButton(
+                          icon: const Icon(
+                            Icons.calendar_month,
+                          ),
+                          onPressed: () {},
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -504,10 +508,10 @@ class ApprovePurchasingView extends StatelessWidget {
                       hint: payment,
                       context: context,
                       validateText: AppStrings.paymentMethodValidateText.tr(),
-                      list:[
-    AppStrings.cashOnDelivery.tr(),
-    AppStrings.postPoned.tr(),
-  ],
+                      list: [
+                        AppStrings.cashOnDelivery.tr(),
+                        AppStrings.postPoned.tr(),
+                      ],
                       onChange: (String? value) {
                         payment = value!;
                       },
@@ -523,11 +527,11 @@ class ApprovePurchasingView extends StatelessWidget {
                       context: context,
                       hint: oilType,
                       list: [
-    AppStrings.canola.tr(),
-    AppStrings.sunFlower.tr(),
-    AppStrings.palm.tr(),
-    AppStrings.olive.tr(),
-  ],
+                        AppStrings.canola.tr(),
+                        AppStrings.sunFlower.tr(),
+                        AppStrings.palm.tr(),
+                        AppStrings.olive.tr(),
+                      ],
                       validateText: AppStrings.oilTypeValidateText.tr(),
                       onChange: (String? value) {
                         oilType = value!;
@@ -687,8 +691,8 @@ class ApprovePurchasingView extends StatelessWidget {
                             AppStrings.submit.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyMedium
-                                !.copyWith(
+                                .bodyMedium!
+                                .copyWith(
                                   fontSize: FontSizeManager.s12.sp,
                                 ),
                           ),
@@ -714,8 +718,8 @@ class ApprovePurchasingView extends StatelessWidget {
                             AppStrings.cancel.tr(),
                             style: Theme.of(context)
                                 .textTheme
-                                .displayMedium
-                                !.copyWith(
+                                .displayMedium!
+                                .copyWith(
                                   fontSize: FontSizeManager.s12.sp,
                                 ),
                           ),
@@ -738,7 +742,7 @@ class ApprovePurchasingView extends StatelessWidget {
     required TextEditingController controller,
     required TextInputType textInputType,
     required String label,
-    suffixIcon,
+    IconButton? suffixIcon,
     String? Function(String?)? validator,
     void Function()? onTap,
     bool? enabled,

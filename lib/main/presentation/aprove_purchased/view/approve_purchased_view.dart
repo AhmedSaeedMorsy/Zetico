@@ -437,9 +437,12 @@ class ApprovePurchasedView extends StatelessWidget {
                       controller: controllerAgreementStartDate,
                       textInputType: TextInputType.none,
                       label: AppStrings.agreementStartDate.tr(),
-                      suffixIcon: const Icon(
-                        Icons.calendar_month,
-                      ),
+                      suffixIcon: IconButton(
+                          icon: const Icon(
+                            Icons.calendar_month,
+                          ),
+                          onPressed: () {},
+                        ),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return AppStrings.agreementStartDateValidate.tr();
@@ -455,9 +458,12 @@ class ApprovePurchasedView extends StatelessWidget {
                       controller: controllerAgreementEndDate,
                       textInputType: TextInputType.none,
                       label: AppStrings.agreementEndDate.tr(),
-                      suffixIcon: const Icon(
-                        Icons.calendar_month,
-                      ),
+                      suffixIcon:  IconButton(
+                          icon: const Icon(
+                            Icons.calendar_month,
+                          ),
+                          onPressed: () {},
+                        ),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return AppStrings.agreementEndDateValidate.tr();
@@ -726,7 +732,7 @@ class ApprovePurchasedView extends StatelessWidget {
     required TextEditingController controller,
     required TextInputType textInputType,
     required String label,
-    suffixIcon,
+    IconButton? suffixIcon,
     String? Function(String?)? validator,
     void Function()? onTap,
     bool? enabled,

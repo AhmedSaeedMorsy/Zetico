@@ -131,7 +131,11 @@ class OrdersOnProgress extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      OnProgressOrderBloc.get(context).openMap(
+                        location: order[index].location,
+                      );
+                    },
                     icon: Icon(
                       Icons.location_on_outlined,
                       color: ColorManager.primaryColor,

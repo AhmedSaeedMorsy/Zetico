@@ -65,12 +65,12 @@ class LoginScreen extends StatelessWidget {
             key: SharedKey.role,
             value: LoginBloc.get(context).loginModel.teamName,
           );
-          
+
           CacheHelper.setData(
             key: SharedKey.roleName,
             value: LoginBloc.get(context).loginModel.roleName,
           );
-         
+
           CacheHelper.setData(
             key: SharedKey.token,
             value: LoginBloc.get(context).loginModel.token,
@@ -80,6 +80,10 @@ class LoginScreen extends StatelessWidget {
             value: LoginBloc.get(context).loginModel.warehouseName,
           );
           if (LoginBloc.get(context).loginModel.teamName == "Drivers") {
+            CacheHelper.setData(
+              key: SharedKey.checkIn,
+              value: false,
+            );
             Navigator.pushReplacementNamed(
               context,
               Routes.homeDriverRoute,

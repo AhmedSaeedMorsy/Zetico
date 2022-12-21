@@ -53,4 +53,5 @@ enum SharedKey {
   roleSpecial,
   cityEn,
   governorateEn,
+  checkIn,
 }

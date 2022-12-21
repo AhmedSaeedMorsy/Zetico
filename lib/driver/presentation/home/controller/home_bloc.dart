@@ -1,12 +1,13 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zetico/app/constant/api_constant.dart';
 import 'package:zetico/app/services/dio_helper/dio_helper.dart';
+import 'package:zetico/app/services/shared_prefrences/cache_helper.dart';
 import 'package:zetico/driver/presentation/home/controller/home_states.dart';
 
 class HomeBloc extends Cubit<HomeStates> {
   HomeBloc() : super(HomeInitState());
   static HomeBloc get(context) => BlocProvider.of(context);
-  bool isCheckIn = false;
+
   void checkIn({
     required String userId,
     required String memberLocation,
@@ -16,7 +17,7 @@ class HomeBloc extends Cubit<HomeStates> {
       "userId": userId,
       "memberLocation": memberLocation,
     }).then((value) {
-      isCheckIn = true;
+      CacheHelper.setData(key: SharedKey.checkIn, value: true);
       emit(CheckInSuccessState());
     }).catchError((error) {
       emit(
@@ -36,7 +37,10 @@ class HomeBloc extends Cubit<HomeStates> {
       "userId": userId,
       "memberLocation": memberLocation,
     }).then((value) {
-      isCheckIn = false;
+      CacheHelper.setData(
+        key: SharedKey.checkIn,
+        value: false,
+      );
       emit(CheckOutSuccessState());
     }).catchError((error) {
       emit(

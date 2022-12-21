@@ -20,6 +20,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Timer? _timer;
   late String routeName;
   void _startDelay() {
+    CacheHelper.removeData(key: SharedKey.roleCreate);
+    CacheHelper.removeData(key: SharedKey.roleDelete);
+    CacheHelper.removeData(key: SharedKey.roleEdit);
+    CacheHelper.removeData(key: SharedKey.roleSpecial);
     _timer = Timer(
       const Duration(
         seconds: AppConstants.splashTime,

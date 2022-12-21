@@ -112,7 +112,7 @@ class OnProgressOrdersView extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    "${AppStrings.date.tr()} ${order[index].collectDate}}",
+                    "${AppStrings.date.tr()} ${order[index].acceptDate}",
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
                           fontSize: FontSizeManager.s14.sp,
                           color: ColorManager.grey,

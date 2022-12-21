@@ -176,24 +176,40 @@ Widget bodyText(BuildContext context, String text, String bodyText) => Text(
             color: ColorManager.grey,
           ),
     );
-Widget button(context, String text, void Function() onPressed) => Expanded(
-      child: Container(
-        height: AppSize.s40.h,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        decoration: BoxDecoration(
-          color: ColorManager.primaryColor,
-          borderRadius: BorderRadius.circular(
-            MediaQuery.of(context).size.height / AppSize.s100,
+Widget button(context, String text, void Function() onPressed) => Container(
+width: double.infinity,
+  height: AppSize.s40.h,
+
+  clipBehavior: Clip.antiAliasWithSaveLayer,
+
+  decoration: BoxDecoration(
+
+    color: ColorManager.primaryColor,
+
+    borderRadius: BorderRadius.circular(
+
+      MediaQuery.of(context).size.height / AppSize.s100,
+
+    ),
+
+  ),
+
+  child: MaterialButton(
+
+    onPressed: onPressed,
+
+    child: Text(
+
+      text,
+
+      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+
+            fontSize: FontSizeManager.s12.sp,
+
           ),
-        ),
-        child: MaterialButton(
-          onPressed: onPressed,
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: FontSizeManager.s12.sp,
-                ),
-          ),
-        ),
-      ),
-    );
+
+    ),
+
+  ),
+
+);

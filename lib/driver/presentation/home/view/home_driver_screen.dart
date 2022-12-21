@@ -87,7 +87,7 @@ class HomeDriverScreen extends StatelessWidget {
                     height: MediaQuery.of(context).size.height / AppSize.s10,
                   ),
                   ConditionalBuilderRec(
-                    condition: HomeBloc.get(context).isCheckIn == true,
+                    condition: CacheHelper.getData(key: SharedKey.checkIn) == true,
                     builder: (context) => Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

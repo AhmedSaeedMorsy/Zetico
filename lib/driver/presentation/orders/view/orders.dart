@@ -136,7 +136,9 @@ class Orders extends StatelessWidget {
                                 ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          OrderBloc.get(context).openMap(location: order[index].location);
+                        },
                         icon: Icon(
                           Icons.location_on_outlined,
                           color: ColorManager.primaryColor,

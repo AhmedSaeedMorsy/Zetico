@@ -164,7 +164,10 @@ class CompletedOrders extends StatelessWidget {
                                 ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          CompletedOrderBloc.get(context)
+                              .openMap(location: order[index].location);
+                        },
                         icon: Icon(
                           Icons.location_on_outlined,
                           color: ColorManager.primaryColor,
