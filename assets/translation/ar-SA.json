@@ -176,5 +176,19 @@
       "issuedString": "لا يمكنني جمع الطلب",
       "required": "مطلوب",
       "permissionStringWarning": "ليس لديك إذن لهذا الإجراء",
-      "checkInString": "يجب أن تقوم بتسجيل الدخول"
+      "checkInString": "يجب أن تقوم بتسجيل الدخول",
+      "shipping": "شحن",
+      "driverName": "اسم السائق : ",
+      "quantity": "الكمية : ",
+      "licence": "الرخصة : ",
+      "collect": "تحصيل",
+      "historyOrder": "سجل الطلبات",
+      "declinedOrder": "الطلبات المرقوضة",
+      "receiveQty": "الكمية المستلمة : ",
+      "addDepreciation": "أضف الاستهلاك",
+      "accept": "مواققة",
+      "depreciation": "الاستهلاك : ",
+      "netQty": "الصافي : ",
+      "reason": "السبب : ",
+      "reCollect": "اعادة تجميع"
 }

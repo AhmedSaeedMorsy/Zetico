@@ -176,5 +176,19 @@
       "issuedString": "I can't collect Order",
       "required": "Required",
       "permissionStringWarning": "You do not have permission for this action",
-      "checkInString": "You must be check in"
+      "checkInString": "You must be check in",
+      "shipping": "Shipping",
+      "driverName": "Driver Name : ",
+      "quantity": "Quantity : ",
+      "licence": "Licence : ",
+      "collect": "Collect",
+      "historyOrder": "Order History",
+      "declinedOrder": "Declined Order",
+      "receiveQty": "Receive Qty : ",
+      "addDepreciation": "Add Depreciation",
+      "accept": "Accept",
+      "depreciation": "Depreciation : ",
+      "netQty": "Net Qty : ",
+      "reason": "Reason : ",
+      "reCollect":"Re-Collect"
 }

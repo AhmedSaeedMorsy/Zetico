@@ -175,4 +175,18 @@ class AppStrings {
   static String required = "required";
   static String permissionStringWarning = "permissionStringWarning";
   static String checkInString = "checkInString";
+  static String shipping = "shipping";
+  static String driverName = "driverName";
+  static String quantity = "quantity";
+  static String licence = "licence";
+  static String collect = "collect";
+  static String historyOrder = "historyOrder";
+  static String declinedOrder = "declinedOrder";
+  static String receiveQty = "receiveQty";
+  static String addDepreciation = "addDepreciation";
+  static String accept = "accept";
+  static String depreciation = "depreciation";
+  static String netQty = "netQty";
+  static String reason = "reason";
+  static String reCollect = "reCollect";
 }

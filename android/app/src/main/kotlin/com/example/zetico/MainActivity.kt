@@ -1,4 +1,4 @@
-package com.example.zetico
+package com.zetico
 
 import io.flutter.embedding.android.FlutterActivity
 

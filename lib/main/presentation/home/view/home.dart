@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {},
                   icon: Icon(
                     Icons.notifications_sharp,
-                    size: AppSize.s30.w,
+                    size: AppSize.s16.w,
                   ),
                 ),
               ],

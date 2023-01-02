@@ -32,9 +32,10 @@ class HomeDriverScreen extends StatelessWidget {
               onPressed: () {},
               icon: Icon(
                 Icons.notifications_sharp,
-                size: AppSize.s30.w,
+                size: AppSize.s20.w,
               ),
             ),
+            SizedBox(width: AppSize.s10.w,)
           ],
           backgroundColor: ColorManager.thirdgradientColor,
           centerTitle: true,

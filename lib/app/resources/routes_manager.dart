@@ -13,6 +13,8 @@ import '../../main/presentation/orders_home/view/orders_home_screen.dart';
 import '../../main/presentation/outlet_home/view/outlet_home_screen.dart';
 import '../../main/presentation/surveyed_home/view/surveyed_home_screen.dart';
 import '../../splash_screen/splach_screen.dart';
+import '../../warehouse/presentation/home/view/home_warehouse_screen.dart';
+import '../../warehouse/presentation/warehouse_home/view/warehouse_home_screen.dart';
 import 'strings_manager.dart';
 
 class Routes {
@@ -29,6 +31,8 @@ class Routes {
   static const String declinedOutletRoute = "/declinedOutletRoute";
   static const String ordersHomeRoute = "/ordersHomeRoute";
   static const String manualOrderRoute = "/manualOrderRoute";
+  static const String homeWarehouseRoute = "/homeWarehouseRoute";
+  static const String warehouse = "/Warehouse";
 }
 
 class RouteGenerator {
@@ -85,6 +89,14 @@ class RouteGenerator {
       case Routes.manualOrderRoute:
         return MaterialPageRoute(
           builder: (_) => const ManualOrderScreen(),
+        );
+      case Routes.homeWarehouseRoute:
+        return MaterialPageRoute(
+          builder: (_) => const HomeWarehouseScreen(),
+        );
+      case Routes.warehouse:
+        return MaterialPageRoute(
+          builder: (_) => const WarehouseHomeScreen(),
         );
 
       default:

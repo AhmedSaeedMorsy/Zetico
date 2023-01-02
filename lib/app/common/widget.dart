@@ -512,3 +512,26 @@ static  void changeLanguage(context) {
             ),
           ));
 }
+
+
+    // number of notification
+                                    // Container(
+                                    //   padding: EdgeInsets.all(
+                                    //     MediaQuery.of(context).size.width /
+                                    //         AppSize.s100,
+                                    //   ),
+                                    //   clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    //   decoration: BoxDecoration(
+                                    //     color: ColorManager.error,
+                                    //     shape: BoxShape.circle,
+                                    //   ),
+                                    //   child: Text(
+                                    //     AppStrings.three,
+                                    //     style: Theme.of(context)
+                                    //         .textTheme
+                                    //         .bodySmall!
+                                    //         .copyWith(
+                                    //           fontSize: FontSizeManager.s16.sp,
+                                    //         ),
+                                    //   ),
+                                    // ),
