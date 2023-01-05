@@ -23,15 +23,15 @@ class OutletHomeScreen extends StatelessWidget {
         create: (context) => ViewOutletBloc()..getViewOutlet(),
         child: Scaffold(
           appBar: AppBar(
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.notifications_sharp,
-                  size: AppSize.s30.w,
-                ),
-              ),
-            ],
+            // actions: [
+            //   IconButton(
+            //     onPressed: () {},
+            //     icon: Icon(
+            //       Icons.notifications_sharp,
+            //       size: AppSize.s30.w,
+            //     ),
+            //   ),
+            // ],
             backgroundColor: ColorManager.thirdgradientColor,
             centerTitle: true,
             title: Text(

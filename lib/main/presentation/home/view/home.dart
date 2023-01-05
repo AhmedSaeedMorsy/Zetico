@@ -52,15 +52,15 @@ class HomeScreen extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.notifications_sharp,
-                    size: AppSize.s16.w,
-                  ),
-                ),
-              ],
+              // actions: [
+              //   IconButton(
+              //     onPressed: () {},
+              //     icon: Icon(
+              //       Icons.notifications_sharp,
+              //       size: AppSize.s16.w,
+              //     ),
+              //   ),
+              // ],
               backgroundColor: ColorManager.thirdgradientColor,
               centerTitle: true,
               title: Text(
@@ -119,11 +119,34 @@ class HomeScreen extends StatelessWidget {
                         Expanded(
                           child: bodyItem(
                             context: context,
-                            function: () {},
-                            image: AssetsManager.registeredOutlet,
-                            text: AppStrings.onlineRegOutlet.tr(),
+                            function: () {
+                              if (CacheHelper.getData(
+                                key: SharedKey.roleSpecial,
+                              ).toString().contains("reassignDecline")) {
+                                Navigator.pushNamed(
+                                  context,
+                                  Routes.declinedOutletRoute,
+                                );
+                              } else {
+                                SharedWidget.toast(
+                                    backgroundColor: ColorManager.yellow,
+                                    message: AppStrings.permissionStringWarning
+                                        .tr());
+                              }
+                            },
+                            image: AssetsManager.survyedOutlet,
+                            text: AppStrings.declinedOutlet.tr(),
                           ),
                         ),
+                   
+                        // Expanded(
+                        //   child: bodyItem(
+                        //     context: context,
+                        //     function: () {},
+                        //     image: AssetsManager.registeredOutlet,
+                        //     text: AppStrings.onlineRegOutlet.tr(),
+                        //   ),
+                        // ),
                       ],
                     ),
                     Row(
@@ -213,37 +236,15 @@ class HomeScreen extends StatelessWidget {
                             text: AppStrings.viewOutlet.tr(),
                           ),
                         ),
-                        Expanded(
-                          child: bodyItem(
-                            context: context,
-                            function: () {},
-                            image: AssetsManager.warehouse,
-                            text: AppStrings.warehouse.tr(),
-                          ),
-                        ),
-                        Expanded(
-                          child: bodyItem(
-                            context: context,
-                            function: () {
-                              if (CacheHelper.getData(
-                                key: SharedKey.roleSpecial,
-                              ).toString().contains("reassignDecline")) {
-                                Navigator.pushNamed(
-                                  context,
-                                  Routes.declinedOutletRoute,
-                                );
-                              } else {
-                                SharedWidget.toast(
-                                    backgroundColor: ColorManager.yellow,
-                                    message: AppStrings.permissionStringWarning
-                                        .tr());
-                              }
-                            },
-                            image: AssetsManager.survyedOutlet,
-                            text: AppStrings.declinedOutlet.tr(),
-                          ),
-                        ),
-                      ],
+                        // Expanded(
+                        //   child: bodyItem(
+                        //     context: context,
+                        //     function: () {},
+                        //     image: AssetsManager.warehouse,
+                        //     text: AppStrings.warehouse.tr(),
+                        //   ),
+                        // ),
+                           ],
                     ),
                   ],
                 ),

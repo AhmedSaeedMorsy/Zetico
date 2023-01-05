@@ -27,16 +27,16 @@ class HomeDriverScreen extends StatelessWidget {
         ..getLongitudeAndLatitude(),
       child: Scaffold(
         appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.notifications_sharp,
-                size: AppSize.s20.w,
-              ),
-            ),
-            SizedBox(width: AppSize.s10.w,)
-          ],
+          // actions: [
+          //   IconButton(
+          //     onPressed: () {},
+          //     icon: Icon(
+          //       Icons.notifications_sharp,
+          //       size: AppSize.s20.w,
+          //     ),
+          //   ),
+          //   SizedBox(width: AppSize.s10.w,)
+          // ],
           backgroundColor: ColorManager.thirdgradientColor,
           centerTitle: true,
           title: Text(

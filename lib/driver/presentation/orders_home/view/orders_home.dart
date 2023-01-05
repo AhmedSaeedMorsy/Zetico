@@ -17,20 +17,21 @@ class OrdersHome extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(
-                right: MediaQuery.of(context).size.width / AppSize.s180,
-              ),
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.notifications_sharp,
-                  size: AppSize.s30.w,
-                ),
-              ),
-            ),
-          ],
+          // actions: [
+          //   Padding(
+          //     padding: EdgeInsets.only(
+          //       right: MediaQuery.of(context).size.width / AppSize.s180,
+          //     ),
+          //     child: IconButton(
+          //       onPressed: () {},
+          //       icon: Icon(
+          //         Icons.notifications_sharp,
+          //         size: AppSize.s30.w,
+          //       ),
+          //     ),
+          //   ),
+          // ],
+      
           backgroundColor: ColorManager.thirdgradientColor,
           centerTitle: true,
           title: Text(
@@ -77,26 +78,27 @@ class OrdersHome extends StatelessWidget {
                       Text(
                         AppStrings.orders.tr(),
                       ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / AppSize.s50,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(
-                          MediaQuery.of(context).size.width / AppSize.s80,
-                        ),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        decoration: BoxDecoration(
-                          color: ColorManager.error,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Text(
-                          AppStrings.three,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: FontSizeManager.s14.sp,
-                                  ),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   width: MediaQuery.of(context).size.width / AppSize.s50,
+                      // ),
+                      // Container(
+                      //   padding: EdgeInsets.all(
+                      //     MediaQuery.of(context).size.width / AppSize.s80,
+                      //   ),
+                      //   clipBehavior: Clip.antiAliasWithSaveLayer,
+                      //   decoration: BoxDecoration(
+                      //     color: ColorManager.error,
+                      //     shape: BoxShape.circle,
+                      //   ),
+                      //   child: Text(
+                      //     AppStrings.three,
+                      //     style:
+                      //         Theme.of(context).textTheme.bodySmall!.copyWith(
+                      //               fontSize: FontSizeManager.s14.sp,
+                      //             ),
+                      //   ),
+                      // ),
+                    
                     ],
                   ),
                   Text(

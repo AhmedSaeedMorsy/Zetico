@@ -160,35 +160,36 @@ class LoginView extends StatelessWidget {
                   },
                   AppStrings.login.tr(),
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s80,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: AppSize.s40.h,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: ColorManager.white,
-                    ),
-                    color: ColorManager.thirdgradientColor,
-                    borderRadius: BorderRadius.circular(
-                      AppSize.s12.h,
-                    ),
-                  ),
-                  child: MaterialButton(
-                    onPressed: () {},
-                    child: Text(
-                      AppStrings.onlineRegOutlet.tr(),
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: FontSizeManager.s16.sp,
-                          ),
-                    ),
-                  ),
-                ),
+               
               ],
             ),
-          ),
+          ), // SizedBox(
+                //   height: MediaQuery.of(context).size.height / AppSize.s80,
+                // ),
+                // Container(
+                //   width: double.infinity,
+                //   height: AppSize.s40.h,
+                //   clipBehavior: Clip.antiAliasWithSaveLayer,
+                //   decoration: BoxDecoration(
+                //     border: Border.all(
+                //       color: ColorManager.white,
+                //     ),
+                //     color: ColorManager.thirdgradientColor,
+                //     borderRadius: BorderRadius.circular(
+                //       AppSize.s12.h,
+                //     ),
+                //   ),
+                //   child: MaterialButton(
+                //     onPressed: () {},
+                //     child: Text(
+                //       AppStrings.onlineRegOutlet.tr(),
+                //       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                //             fontSize: FontSizeManager.s16.sp,
+                //           ),
+                //     ),
+                //   ),
+                // ),
+              
         ),
       );
   void changeLanguage(context) {

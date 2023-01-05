@@ -21,20 +21,21 @@ class CompletedOrders extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(
-                right: MediaQuery.of(context).size.width / AppSize.s180,
-              ),
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.notifications_sharp,
-                  size: AppSize.s30.w,
-                ),
-              ),
-            ),
-          ],
+          // actions: [
+          //   Padding(
+          //     padding: EdgeInsets.only(
+          //       right: MediaQuery.of(context).size.width / AppSize.s180,
+          //     ),
+          //     child: IconButton(
+          //       onPressed: () {},
+          //       icon: Icon(
+          //         Icons.notifications_sharp,
+          //         size: AppSize.s30.w,
+          //       ),
+          //     ),
+          //   ),
+          // ],
+          
           backgroundColor: ColorManager.thirdgradientColor,
           centerTitle: true,
           title: Text(

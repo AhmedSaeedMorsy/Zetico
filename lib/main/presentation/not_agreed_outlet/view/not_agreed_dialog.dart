@@ -274,72 +274,73 @@ Future showNotAgreedDialog(BuildContext context, ResturantModel outlet) =>
                   AppStrings.spaceOutlet.tr(),
                   outlet.outletSpace!,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                Row(
-                  children: [
-                    button(context, AppStrings.order.tr(), () {
-                      // if (CacheHelper.getData(key: SharedKey.roleSpecial)
-                      //     .toString()
-                      //     .contains("")) {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => EditOutletScreen()));
-                      // } else {
-                      //   SharedWidget.toast(
-                      //     backgroundColor: ColorManager.yellow,
-                      //     message: AppStrings.permissionStringWarning.tr(),
-                      //   );
-                      // }
-                    }),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / AppSize.s50,
-                    ),
-                    button(
-                      context,
-                      AppStrings.edit.tr(),
-                      () {
-                        // if (CacheHelper.getData(key: SharedKey.roleSpecial)
-                        //     .toString()
-                        //     .contains("")) {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => EditOutletScreen()));
-                        // } else {
-                        //   SharedWidget.toast(
-                        //     backgroundColor: ColorManager.yellow,
-                        //     message: AppStrings.permissionStringWarning.tr(),
-                        //   );
-                        // }
-                      },
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / AppSize.s50,
-                    ),
-                    button(
-                      context,
-                      AppStrings.declined.tr(),
-                      () {
-                        // if (CacheHelper.getData(key: SharedKey.roleSpecial)
-                        //     .toString()
-                        //     .contains("")) {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => EditOutletScreen()));
-                        // } else {
-                        //   SharedWidget.toast(
-                        //     backgroundColor: ColorManager.yellow,
-                        //     message: AppStrings.permissionStringWarning.tr(),
-                        //   );
-                        // }
-                      },
-                    ),
-                  ],
-                ),
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height / AppSize.s50,
+                // ),
+                // Row(
+                //   children: [
+                //     button(context, AppStrings.order.tr(), () {
+                //       // if (CacheHelper.getData(key: SharedKey.roleSpecial)
+                //       //     .toString()
+                //       //     .contains("")) {
+                //       // Navigator.push(
+                //       //     context,
+                //       //     MaterialPageRoute(
+                //       //         builder: (context) => EditOutletScreen()));
+                //       // } else {
+                //       //   SharedWidget.toast(
+                //       //     backgroundColor: ColorManager.yellow,
+                //       //     message: AppStrings.permissionStringWarning.tr(),
+                //       //   );
+                //       // }
+                //     }),
+                //     SizedBox(
+                //       width: MediaQuery.of(context).size.width / AppSize.s50,
+                //     ),
+                //     button(
+                //       context,
+                //       AppStrings.edit.tr(),
+                //       () {
+                //         // if (CacheHelper.getData(key: SharedKey.roleSpecial)
+                //         //     .toString()
+                //         //     .contains("")) {
+                //         // Navigator.push(
+                //         //     context,
+                //         //     MaterialPageRoute(
+                //         //         builder: (context) => EditOutletScreen()));
+                //         // } else {
+                //         //   SharedWidget.toast(
+                //         //     backgroundColor: ColorManager.yellow,
+                //         //     message: AppStrings.permissionStringWarning.tr(),
+                //         //   );
+                //         // }
+                //       },
+                //     ),
+                //     SizedBox(
+                //       width: MediaQuery.of(context).size.width / AppSize.s50,
+                //     ),
+                //     button(
+                //       context,
+                //       AppStrings.declined.tr(),
+                //       () {
+                //         // if (CacheHelper.getData(key: SharedKey.roleSpecial)
+                //         //     .toString()
+                //         //     .contains("")) {
+                //         // Navigator.push(
+                //         //     context,
+                //         //     MaterialPageRoute(
+                //         //         builder: (context) => EditOutletScreen()));
+                //         // } else {
+                //         //   SharedWidget.toast(
+                //         //     backgroundColor: ColorManager.yellow,
+                //         //     message: AppStrings.permissionStringWarning.tr(),
+                //         //   );
+                //         // }
+                //       },
+                //     ),
+                //   ],
+                // ),
+              
               ],
             ),
           ),

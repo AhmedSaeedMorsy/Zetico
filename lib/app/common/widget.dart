@@ -152,19 +152,19 @@ static Widget drawer({required BuildContext context,required String name,require
             SizedBox(
               height: MediaQuery.of(context).size.height / AppSize.s22,
             ),
-            ListTile(
-              leading: Image.asset(
-                AssetsManager.settings,
-              ),
-              title: Text(
-                AppStrings.editProfile.tr(),
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              onTap: () {},
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / AppSize.s22,
-            ),
+            // ListTile(
+            //   leading: Image.asset(
+            //     AssetsManager.settings,
+            //   ),
+            //   title: Text(
+            //     AppStrings.editProfile.tr(),
+            //     style: Theme.of(context).textTheme.bodyLarge,
+            //   ),
+            //   onTap: () {},
+            // ),
+            // SizedBox(
+            //   height: MediaQuery.of(context).size.height / AppSize.s22,
+            // ),
             ListTile(
               leading: Image.asset(
                 AssetsManager.logOut,

@@ -146,10 +146,10 @@ Future showDeclinedDialog(
                   AppStrings.spaceOutlet.tr(),
                   outlet.outletSpace!,
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / AppSize.s50,
-                ),
-                button(context, AppStrings.reAssign.tr(), () {}),
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.height / AppSize.s50,
+                // ),
+                // button(context, AppStrings.reAssign.tr(), () {}),
               ],
             ),
           ),
