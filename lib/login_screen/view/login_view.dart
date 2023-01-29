@@ -12,6 +12,7 @@ import 'package:zetico/login_screen/controller/login_states.dart';
 import '../../app/common/widget.dart';
 import '../../app/resources/assets_manager.dart';
 import '../../app/resources/color_manager.dart';
+import '../../app/resources/routes_manager.dart';
 import '../../app/resources/strings_manager.dart';
 import '../../app/resources/values_manager.dart';
 
@@ -160,36 +161,40 @@ class LoginView extends StatelessWidget {
                   },
                   AppStrings.login.tr(),
                 ),
-               
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / AppSize.s80,
+                ),
+                Container(
+                  width: double.infinity,
+                  height: AppSize.s40.h,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: ColorManager.white,
+                    ),
+                    color: ColorManager.thirdgradientColor,
+                    borderRadius: BorderRadius.circular(
+                      AppSize.s12.h,
+                    ),
+                  ),
+                  child: MaterialButton(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.addOutletRoute,
+                      );
+                    },
+                    child: Text(
+                      AppStrings.onlineRegOutlet.tr(),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: FontSizeManager.s16.sp,
+                          ),
+                    ),
+                  ),
+                ),
               ],
             ),
-          ), // SizedBox(
-                //   height: MediaQuery.of(context).size.height / AppSize.s80,
-                // ),
-                // Container(
-                //   width: double.infinity,
-                //   height: AppSize.s40.h,
-                //   clipBehavior: Clip.antiAliasWithSaveLayer,
-                //   decoration: BoxDecoration(
-                //     border: Border.all(
-                //       color: ColorManager.white,
-                //     ),
-                //     color: ColorManager.thirdgradientColor,
-                //     borderRadius: BorderRadius.circular(
-                //       AppSize.s12.h,
-                //     ),
-                //   ),
-                //   child: MaterialButton(
-                //     onPressed: () {},
-                //     child: Text(
-                //       AppStrings.onlineRegOutlet.tr(),
-                //       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                //             fontSize: FontSizeManager.s16.sp,
-                //           ),
-                //     ),
-                //   ),
-                // ),
-              
+          ),
         ),
       );
   void changeLanguage(context) {
