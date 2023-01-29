@@ -181,7 +181,7 @@ class LoginView extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(
                         context,
-                        Routes.addOutletRoute,
+                        Routes.addOutletRegRoute,
                       );
                     },
                     child: Text(

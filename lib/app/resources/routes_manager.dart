@@ -7,6 +7,7 @@ import 'package:zetico/login_screen/view/login_screen.dart';
 import 'package:zetico/main/presentation/add_outlet/view/add_outlet_screen.dart';
 import 'package:zetico/main/presentation/declined_outlet/view/declined_outlet_screen.dart';
 import 'package:zetico/main/presentation/purchasing_home/view/purchasing_home_screen.dart';
+import '../../main/presentation/add_outlet_reg/view/add_outlet_reg_screen.dart';
 import '../../main/presentation/home/view/home.dart';
 import '../../main/presentation/manual_order/view/manual_order_screen.dart';
 import '../../main/presentation/orders_home/view/orders_home_screen.dart';
@@ -33,6 +34,7 @@ class Routes {
   static const String manualOrderRoute = "/manualOrderRoute";
   static const String homeWarehouseRoute = "/homeWarehouseRoute";
   static const String warehouse = "/Warehouse";
+  static const String addOutletRegRoute = "/addOutletRegRoute";
 }
 
 class RouteGenerator {
@@ -99,6 +101,9 @@ class RouteGenerator {
           builder: (_) => const WarehouseHomeScreen(),
         );
 
+      case Routes.addOutletRegRoute:
+        return MaterialPageRoute(
+            builder: (context) => const AddOutletRegScreen());
       default:
         return unDefiendRoute();
     }
