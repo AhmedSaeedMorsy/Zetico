@@ -451,6 +451,7 @@ class AddOutletRegView extends StatelessWidget {
                               onPressed: () {
                                 if (formKey.currentState!.validate()) {
                                   AddOutletRegBloc.get(context).getViewOutlet();
+                                  Navigator.pop(context);
                                 }
                               },
                               child: Text(

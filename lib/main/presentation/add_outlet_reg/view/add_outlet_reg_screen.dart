@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zetico/app/resources/strings_manager.dart';
 import 'package:zetico/main/main_controller/main_bloc.dart';
-import 'package:zetico/main/presentation/add_outlet/view/add_outlet_view.dart';
 import '../../../../app/resources/font_manager.dart';
 import '../controller/add_outlet_reg_bloc.dart';
+import 'add_outlet_reg_view.dart';
 
 class AddOutletRegScreen extends StatelessWidget {
   const AddOutletRegScreen({super.key});
@@ -36,7 +36,7 @@ class AddOutletRegScreen extends StatelessWidget {
                   ),
             ),
           ),
-          body: AddOutletView()),
+          body: AddOutletRegView()),
     );
   }
 }
