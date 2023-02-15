@@ -72,7 +72,7 @@ class CollectionOrderBloc extends Cubit<CollectionOrderStates> {
     emit(ChangePriceState());
   }
 
-  double getPrice(int value) {
+  double getPrice(double value) {
     double price = value * quantity;
     price = double.parse((price).toStringAsFixed(2));
     return price;

@@ -185,7 +185,7 @@ class CollectionView extends StatelessWidget {
                                 width: AppSize.s100.w,
                                 child: Center(
                                   child: Text(
-                                    "${CollectionOrderBloc.get(context).getPrice(int.parse(order.priceKg))}",
+                                    "${CollectionOrderBloc.get(context).getPrice(double.parse(order.priceKg))}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge!
