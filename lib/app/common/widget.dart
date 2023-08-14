@@ -91,7 +91,7 @@ class SharedWidget {
   //   );
   // }
 
-  static toast({required String message,required Color backgroundColor}) {
+  static toast({required String message, required Color backgroundColor}) {
     return Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_SHORT,
@@ -102,7 +102,12 @@ class SharedWidget {
     );
   }
 
-static Widget drawer({required BuildContext context,required String name,required String phone,}) => Drawer(
+  static Widget drawer({
+    required BuildContext context,
+    required String name,
+    required String phone,
+  }) =>
+      Drawer(
         child: ListView(
           children: [
             DrawerHeader(
@@ -125,7 +130,8 @@ static Widget drawer({required BuildContext context,required String name,require
                     height: MediaQuery.of(context).size.height / AppSize.s80,
                   ),
                   Text(
-                    phone,overflow: TextOverflow.ellipsis,
+                    phone,
+                    overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: Theme.of(context).textTheme.displaySmall!.copyWith(
                           fontSize: FontSizeManager.s18.sp,
@@ -174,7 +180,7 @@ static Widget drawer({required BuildContext context,required String name,require
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               onTap: () {
-               CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.cityEn,
                 );
                 CacheHelper.removeData(
@@ -186,43 +192,43 @@ static Widget drawer({required BuildContext context,required String name,require
                 CacheHelper.removeData(
                   key: SharedKey.memberId,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.memberMail,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.memberName,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.memberPhone,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.memberTitle,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.role,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.roleCreate,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.roleDelete,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.roleEdit,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.roleName,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.roleSpecial,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.token,
                 );
-                  CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.warehouseName,
                 );
-                    CacheHelper.removeData(
+                CacheHelper.removeData(
                   key: SharedKey.checkIn,
                 );
                 Navigator.pushReplacementNamed(
@@ -235,7 +241,7 @@ static Widget drawer({required BuildContext context,required String name,require
         ),
       );
 
-static  void changeLanguage(context) {
+  static void changeLanguage(context) {
     changeAppLanguage();
     Phoenix.rebirth(context);
   }

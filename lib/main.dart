@@ -18,7 +18,7 @@ void main() async {
         ENGLISH_LOCAL,
       ],
       path: asstesLocalePath,
-      child: Phoenix(
+      child: Phoenix( 
         child: MyApp(),
       ),
     ),

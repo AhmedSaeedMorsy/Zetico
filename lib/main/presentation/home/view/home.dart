@@ -138,15 +138,6 @@ class HomeScreen extends StatelessWidget {
                             text: AppStrings.declinedOutlet.tr(),
                           ),
                         ),
-                   
-                        // Expanded(
-                        //   child: bodyItem(
-                        //     context: context,
-                        //     function: () {},
-                        //     image: AssetsManager.registeredOutlet,
-                        //     text: AppStrings.onlineRegOutlet.tr(),
-                        //   ),
-                        // ),
                       ],
                     ),
                     Row(
@@ -236,15 +227,13 @@ class HomeScreen extends StatelessWidget {
                             text: AppStrings.viewOutlet.tr(),
                           ),
                         ),
-                        // Expanded(
-                        //   child: bodyItem(
-                        //     context: context,
-                        //     function: () {},
-                        //     image: AssetsManager.warehouse,
-                        //     text: AppStrings.warehouse.tr(),
-                        //   ),
-                        // ),
-                           ],
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                        const Expanded(
+                          child: SizedBox(),
+                        ),
+                      ],
                     ),
                   ],
                 ),

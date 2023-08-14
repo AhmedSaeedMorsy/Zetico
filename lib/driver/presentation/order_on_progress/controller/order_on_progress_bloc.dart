@@ -28,7 +28,7 @@ class OnProgressOrderBloc extends Cubit<OnProgressOrderStates> {
     required String location,
   }) async {
     String googleUrl =
-        "https://www.google.com/maps/search/?api=1&query=$location";
+       "https://www.google.com/maps/search/?api=1&query=$location";
     if (await canLaunch(googleUrl)) {
       await launch(googleUrl);
     } 
