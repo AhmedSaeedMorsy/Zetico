@@ -2,7 +2,7 @@
       "notFound": "Not Found",
       "welcome": "Welcome",
       "en": "En",
-      "name": "name : ",
+      "name": "Name : ",
       "email": "Email",
       "orders": "Orders",
       "completedOrders": "Completed Orders",
@@ -190,5 +190,8 @@
       "depreciation": "Depreciation : ",
       "netQty": "Net Qty : ",
       "reason": "Reason : ",
-      "reCollect":"Re-Collect"
+      "reCollect": "Re-Collect",
+      "individualOrder": "Individual Order",
+      "startTime": "Start Time",
+      "endTime": "End Time"
 }

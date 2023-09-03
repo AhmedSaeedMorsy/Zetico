@@ -189,4 +189,7 @@ class AppStrings {
   static String netQty = "netQty";
   static String reason = "reason";
   static String reCollect = "reCollect";
+  static String individualOrder = "individualOrder";
+  static String startTime = "startTime";
+  static String endTime = "endTime";
 }

@@ -190,5 +190,8 @@
       "depreciation": "الاستهلاك : ",
       "netQty": "الصافي : ",
       "reason": "السبب : ",
-      "reCollect": "اعادة تجميع"
+      "reCollect": "اعادة تجميع",
+      "individualOrder": "طلب فردي",
+      "startTime": "وقت البداية",
+      "endTime": "وقت النهاية"
 }
